@@ -14,15 +14,11 @@ import static org.junit.Assert.assertThat;
  */
 public class PointTest {
     /**
-     * Point instance.
-     */
-    private Point point = new Point(2, 3);
-
-    /**
      * Test Point instance existence.
      */
     @Test
     public void testPointExists() {
+        final Point point = new Point(2, 3);
         assertThat(point, notNullValue());
     }
 
@@ -31,6 +27,7 @@ public class PointTest {
      */
     @Test
     public void testPointHasX() {
+        final Point point = new Point(2, 3);
         final int pointX = 2;
         assertThat(point.getX(), is(pointX));
     }
@@ -40,6 +37,7 @@ public class PointTest {
      */
     @Test
     public void testPOinthasY() {
+        final Point point = new Point(2, 3);
         final int pointY = 3;
         assertThat(point.getY(), is(pointY));
     }
@@ -49,6 +47,7 @@ public class PointTest {
      */
     @Test
     public void testPointNotResides() {
+        final Point point = new Point(2, 3);
         final int aValue = 1;
         final int bValue = 1;
         assertThat(point.is(aValue, bValue), is(true));

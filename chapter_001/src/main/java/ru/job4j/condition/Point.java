@@ -50,6 +50,6 @@ public class Point {
      * @return true if point exists on function
      */
     public boolean is(int aValue, int bValue) {
-        return (this.y == aValue * this.x + bValue) ? true : false;
+        return this.y == aValue * this.x + bValue;
     }
 }
