@@ -47,5 +47,16 @@ public class MaxTest {
         assertThat(max.max(first, second), is(second));
     }
 
+    /**
+     * Test find max from three numbers.
+     */
+    @Test
+    public void testMaxFromThreeNumbers() {
+        final int first = 1;
+        final int second = 2;
+        final int third = 3;
+        assertThat(max.max(first, second, third), is(third));
+    }
+
 
 }

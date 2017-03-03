@@ -62,4 +62,12 @@ public class Triangle {
     private double getDiff(int a, int b) {
         return Math.pow((double) (a - b), 2);
     }
+
+    /**
+     * Test that triangle is valid.
+     * @return boolean
+     */
+    public boolean isValid() {
+        return area() > 0.01;
+    }
 }
