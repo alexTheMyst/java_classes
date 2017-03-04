@@ -50,17 +50,8 @@ public class Triangle {
      * @return edge length
      */
     private double getEdgeLength(Point aPoint, Point bPoint) {
-        return Math.sqrt(getDiff(bPoint.getX(), aPoint.getX()) + getDiff(bPoint.getY(), aPoint.getY()));
-    }
-
-    /**
-     * Calculate difference between two coordinates.
-     * @param a value
-     * @param b value
-     * @return (a minus b)^2
-     */
-    private double getDiff(int a, int b) {
-        return Math.pow((double) (a - b), 2);
+        return Math.sqrt(Math.pow((double) (bPoint.getX() - aPoint.getX()), 2)
+                + Math.pow((double) (bPoint.getY() - aPoint.getY()), 2));
     }
 
     /**
@@ -68,6 +59,7 @@ public class Triangle {
      * @return boolean
      */
     public boolean isValid() {
-        return area() > 0.01;
+        return (aPoint.getX() - cPoint.getX() / bPoint.getX() - cPoint.getX())
+                != (aPoint.getY() - cPoint.getY() / bPoint.getY() - cPoint.getY());
     }
 }
