@@ -32,12 +32,22 @@ public class FactorialTest {
     }
 
     /**
-     * Test Factorial for 0 and 1.
+     * Test Factorial for 0.
      */
-    public void testFactorialForZeroAndOne() {
+    @Test
+    public void testFactorialForZero() {
         Factorial factorial = new Factorial();
         int res = 1;
         assertThat(factorial.calc(0), is(1));
+    }
+
+    /**
+     * Test Factorial for 1.
+     */
+    @Test
+    public void testFactorialForOne() {
+        Factorial factorial = new Factorial();
+        int res = 1;
         assertThat(factorial.calc(1), is(1));
     }
 }
