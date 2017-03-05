@@ -38,7 +38,7 @@ public class FactorialTest {
     public void testFactorialForZero() {
         Factorial factorial = new Factorial();
         int res = 1;
-        assertThat(factorial.calc(0), is(1));
+        assertThat(factorial.calc(0), is(res));
     }
 
     /**
@@ -48,6 +48,6 @@ public class FactorialTest {
     public void testFactorialForOne() {
         Factorial factorial = new Factorial();
         int res = 1;
-        assertThat(factorial.calc(1), is(1));
+        assertThat(factorial.calc(1), is(res));
     }
 }
