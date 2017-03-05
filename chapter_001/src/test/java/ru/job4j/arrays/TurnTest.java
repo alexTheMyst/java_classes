@@ -18,7 +18,7 @@ public class TurnTest {
      */
     @Test
     public void testTurnExists() {
-        Turn turn = new Turn();
+        final Turn turn = new Turn();
         assertThat(turn, notNullValue());
     }
 
@@ -27,7 +27,7 @@ public class TurnTest {
      */
     @Test
     public void testBackReturnsReversedArray() {
-        Turn turn = new Turn();
+        final Turn turn = new Turn();
         final int[] givenArray = new int[] {1, 2, 3, 4, 5};
         final int[] reversedArray = new int[] {5, 4, 3, 2, 1};
         turn.back(givenArray);
