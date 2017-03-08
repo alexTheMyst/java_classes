@@ -12,22 +12,25 @@ public class ArrayDuplicatesRemover {
 
     /**
      * Removes duplicates from array.
-     *
      * @param givenArray array
      * @return array
      */
     public String[] removeDuplicates(String[] givenArray) {
-        for (String origString : givenArray) {
-            int equalsCounter = 0;
-            for (int i = 0; i < givenArray.length; i++) {
-                if (origString.equals(givenArray[i])) {
-                    equalsCounter++;
-                    if (equalsCounter > 1) {
-                        shiftArrayVals(i, givenArray);
-                        givenArray = Arrays.copyOf(givenArray, givenArray.length - 1);
+        int equalsCounter = 0;
+        for (int currentWordIndex = 0; currentWordIndex < givenArray.length; currentWordIndex++) {
+            int wordInstances = 0;
+            for (int checkWordIndex = 0; checkWordIndex < givenArray.length - equalsCounter; checkWordIndex++) {
+                if (givenArray[currentWordIndex].equals(givenArray[checkWordIndex])) {
+                    wordInstances++;
+                    if (wordInstances > 1) {
+                        equalsCounter++;
+                        shiftArrayVals(checkWordIndex, givenArray);
                     }
                 }
             }
+        }
+        if (equalsCounter >= 1) {
+            givenArray = Arrays.copyOf(givenArray, givenArray.length - equalsCounter);
         }
         return givenArray;
     }

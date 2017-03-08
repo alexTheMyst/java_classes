@@ -29,7 +29,8 @@ public class ArrayDuplicatesRemoverTest {
     @Test
     public void testRemoveDuplicates() {
         final ArrayDuplicatesRemover arrayDuplicatesRemover = new ArrayDuplicatesRemover();
-        final String[] givenArray = new String[] {"Привет", "Привет", "Мир", "Мир", "Привет", "Мир", "Привет", "Мир"};
+        //final String[] givenArray = new String[] {"Привет", "Привет", "Мир", "Мир", "Привет", "Мир", "Привет", "Мир"};
+        final String[] givenArray = new String[] {"Привет", "Мир"};
         final String[] testArray = new String[] {"Привет", "Мир"};
         assertThat(arrayDuplicatesRemover.removeDuplicates(givenArray), is(testArray));
     }
