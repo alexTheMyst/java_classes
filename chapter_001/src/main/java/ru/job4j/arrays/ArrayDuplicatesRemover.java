@@ -12,7 +12,6 @@ public class ArrayDuplicatesRemover {
 
     /**
      * Removes duplicates from array.
-     *
      * @param givenArray array
      * @return array
      */
