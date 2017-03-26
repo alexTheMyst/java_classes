@@ -71,7 +71,7 @@ public class TrackerTest {
     }
 
     /**
-     * Tests that item changed after upgrade.
+     * Tests that item changed after update.
      */
     @Test
     public void testUpdatedItemHasChanged() {
