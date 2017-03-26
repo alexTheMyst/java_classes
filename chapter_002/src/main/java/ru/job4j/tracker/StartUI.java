@@ -80,6 +80,14 @@ public class StartUI {
     }
 
     /**
+     * Starts the program.
+     * @param args program parameters as a string array
+     */
+    public static void main(String[] args) {
+        new StartUI(new ConsoleInput()).init();
+    }
+
+    /**
      * Prints phrase and return user input.
      * @return string entered by user
      */
@@ -118,14 +126,6 @@ public class StartUI {
      */
     private String askItemName() {
         return input.ask("Please enter item name: \n");
-    }
-
-    /**
-     * Starts the programm.
-     * @param args programm parameters as a string array
-     */
-    public static void main(String[] args) {
-        new StartUI(new ConsoleInput()).init();
     }
 
     /**
