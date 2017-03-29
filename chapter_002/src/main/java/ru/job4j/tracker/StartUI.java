@@ -9,6 +9,41 @@ package ru.job4j.tracker;
 public class StartUI {
 
     /**
+     * Add item constant.
+     */
+    static final int ADD_NEW_ITEM = 0;
+
+    /**
+     * Show items constant.
+     */
+    static final int SHWOW_ALL_ITEMS = 1;
+
+    /**
+     * Edit item constant.
+     */
+    static final int EDIT_ITEM = 2;
+
+    /**
+     * Delete item constant.
+     */
+    static final int DELETE_ITEM = 3;
+
+    /**
+     * Find items by id constant.
+     */
+    static final int FIND_ITEM_BY_ID = 4;
+
+    /**
+     * Find item by name constant.
+     */
+    static final int FIND_ITEMS_BY_NAME = 5;
+
+    /**
+     * Exit constant.
+     */
+    static final int EXIT = 6;
+
+    /**
      * Any implementation of user's input.
      */
     private Input input;
@@ -33,48 +68,41 @@ public class StartUI {
     }
 
     /**
-     * Initialize program.
+     * Initialize the program.
      */
     private void init() {
         Tracker tracker = new Tracker();
 
         while (true) {
             printMenu();
-            int menuItemNumber = Integer.parseInt(input.ask("Please choose a menu item number: "));
-            if (menuItemNumber < 0 || menuItemNumber > 6) {
-                System.out.printf("Wrong input. Input should be in range from 0 to %d%n", menu.length - 1);
-            } else if (menuItemNumber == 6) {
+            int menuItemNumber = Integer.parseInt(this.input.ask("Please choose a menu item number: "));
+            if (menuItemNumber < ADD_NEW_ITEM || menuItemNumber > EXIT) {
+                System.out.printf("Wrong input. Input should be in range from 0 to %d%n", this.menu.length - 1);
+            } else if (menuItemNumber == EXIT) {
                 System.out.println("Bye!");
                 break;
-            } else if (menuItemNumber == 0) {
-                String itemName = askItemName();
-                Item item = new Item(itemName);
+            } else if (menuItemNumber == ADD_NEW_ITEM) {
+                Item item = new Item(askItemName());
                 tracker.add(item);
-            } else if (menuItemNumber == 1) {
-                Item[] items = tracker.findAll();
+            } else if (menuItemNumber == SHWOW_ALL_ITEMS) {
                 System.out.println("Tracker contains items with names: \n");
-                printHeader();
-                printItems(items);
+                printItems(tracker.findAll());
                 System.out.println();
-            } else if (menuItemNumber == 2) {
-                String idForUpdate = tracker.findById(askItemId()).getId();
+            } else if (menuItemNumber == EDIT_ITEM) {
                 Item updatedItem = new Item(askItemName());
-                updatedItem.setId(idForUpdate);
+                updatedItem.setId(tracker.findById(askItemId()).getId());
                 tracker.update(updatedItem);
-            } else if (menuItemNumber == 3) {
+            } else if (menuItemNumber == DELETE_ITEM) {
                 Item itemForDelete = new Item("");
                 itemForDelete.setId(askItemId());
                 tracker.delete(itemForDelete);
-            } else if (menuItemNumber == 4) {
-                Item foundItem = tracker.findById(askItemId());
+            } else if (menuItemNumber == FIND_ITEM_BY_ID) {
                 printHeader();
-                printItem(foundItem);
+                printItem(tracker.findById(askItemId()));
                 System.out.println();
-            } else if (menuItemNumber == 5) {
+            } else if (menuItemNumber == FIND_ITEMS_BY_NAME) {
                 String itemName = askItemName();
-                Item[] items = tracker.findByName(itemName);
-                printHeader();
-                printItems(items);
+                printItems(tracker.findByName(itemName));
             }
         }
     }
@@ -92,7 +120,7 @@ public class StartUI {
      * @return string entered by user
      */
     private String askItemId() {
-        return input.ask("Please enter item Id: \n");
+        return this.input.ask("Please enter item Id: \n");
     }
 
     /**
@@ -100,16 +128,6 @@ public class StartUI {
      */
     private void printHeader() {
         System.out.printf("| %20s\t| %40s\t|\n", "Item Id", "Item Name");
-    }
-
-    /**
-     * Prints array of items as a table.
-     * @param items items to print
-     */
-    private void printItems(Item[] items) {
-        for (Item item : items) {
-            printItem(item);
-        }
     }
 
     /**
@@ -121,11 +139,22 @@ public class StartUI {
     }
 
     /**
+     * Prints array of items as a table.
+     * @param items items to print
+     */
+    private void printItems(Item[] items) {
+        printHeader();
+        for (Item item : items) {
+            printItem(item);
+        }
+    }
+
+    /**
      * Asks user to enter item name and return it as a string.
      * @return item name
      */
     private String askItemName() {
-        return input.ask("Please enter item name: \n");
+        return this.input.ask("Please enter item name: \n");
     }
 
     /**
