@@ -75,32 +75,32 @@ public class StartUI {
 
         while (true) {
             printMenu();
-            int menuItemNumber = Integer.parseInt(this.input.ask("Please choose a menu item number: "));
-            if (menuItemNumber < ADD_NEW_ITEM || menuItemNumber > EXIT) {
+            int userAnswer = Integer.parseInt(this.input.ask("Please choose a menu item number: "));
+            if (userAnswer < ADD_NEW_ITEM || userAnswer > EXIT) {
                 System.out.printf("Wrong input. Input should be in range from 0 to %d%n", this.menu.length - 1);
-            } else if (menuItemNumber == EXIT) {
+            } else if (userAnswer == EXIT) {
                 System.out.println("Bye!");
                 break;
-            } else if (menuItemNumber == ADD_NEW_ITEM) {
+            } else if (userAnswer == ADD_NEW_ITEM) {
                 Item item = new Item(askItemName());
                 tracker.add(item);
-            } else if (menuItemNumber == SHWOW_ALL_ITEMS) {
+            } else if (userAnswer == SHWOW_ALL_ITEMS) {
                 System.out.println("Tracker contains items with names: \n");
                 printItems(tracker.findAll());
                 System.out.println();
-            } else if (menuItemNumber == EDIT_ITEM) {
+            } else if (userAnswer == EDIT_ITEM) {
                 Item updatedItem = new Item(askItemName());
                 updatedItem.setId(tracker.findById(askItemId()).getId());
                 tracker.update(updatedItem);
-            } else if (menuItemNumber == DELETE_ITEM) {
+            } else if (userAnswer == DELETE_ITEM) {
                 Item itemForDelete = new Item("");
                 itemForDelete.setId(askItemId());
                 tracker.delete(itemForDelete);
-            } else if (menuItemNumber == FIND_ITEM_BY_ID) {
+            } else if (userAnswer == FIND_ITEM_BY_ID) {
                 printHeader();
                 printItem(tracker.findById(askItemId()));
                 System.out.println();
-            } else if (menuItemNumber == FIND_ITEMS_BY_NAME) {
+            } else if (userAnswer == FIND_ITEMS_BY_NAME) {
                 String itemName = askItemName();
                 printItems(tracker.findByName(itemName));
             }
