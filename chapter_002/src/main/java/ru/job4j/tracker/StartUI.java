@@ -57,22 +57,26 @@ public class StartUI {
             "3. Delete item.",
             "4. Find item by Id.",
             "5. Find items by name.",
-            "6. Exit Program."};;
+            "6. Exit Program."};
+
+    /**
+     * Tracker instance.
+     */
+    private Tracker tracker;
 
     /**
      * Constructor.
      * @param input any input implementation
      */
-    private StartUI(Input input) {
+    protected StartUI(Tracker tracker, Input input) {
+        this.tracker = tracker;
         this.input = input;
     }
 
     /**
      * Initialize the program.
      */
-    private void init() {
-        Tracker tracker = new Tracker();
-
+    protected void init() {
         while (true) {
             printMenu();
             int userAnswer = Integer.parseInt(this.input.ask("Please choose a menu item number: "));
@@ -83,26 +87,26 @@ public class StartUI {
                 break;
             } else if (userAnswer == ADD_NEW_ITEM) {
                 Item item = new Item(askItemName());
-                tracker.add(item);
+                this.tracker.add(item);
             } else if (userAnswer == SHWOW_ALL_ITEMS) {
                 System.out.println("Tracker contains items with names: \n");
-                printItems(tracker.findAll());
+                printItems(this.tracker.findAll());
                 System.out.println();
             } else if (userAnswer == EDIT_ITEM) {
                 Item updatedItem = new Item(askItemName());
-                updatedItem.setId(tracker.findById(askItemId()).getId());
-                tracker.update(updatedItem);
+                updatedItem.setId(this.tracker.findById(askItemId()).getId());
+                this.tracker.update(updatedItem);
             } else if (userAnswer == DELETE_ITEM) {
                 Item itemForDelete = new Item("");
                 itemForDelete.setId(askItemId());
-                tracker.delete(itemForDelete);
+                this.tracker.delete(itemForDelete);
             } else if (userAnswer == FIND_ITEM_BY_ID) {
                 printHeader();
-                printItem(tracker.findById(askItemId()));
+                printItem(this.tracker.findById(askItemId()));
                 System.out.println();
             } else if (userAnswer == FIND_ITEMS_BY_NAME) {
                 String itemName = askItemName();
-                printItems(tracker.findByName(itemName));
+                printItems(this.tracker.findByName(itemName));
             }
         }
     }
@@ -112,7 +116,7 @@ public class StartUI {
      * @param args program parameters as a string array
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput()).init();
+        new StartUI(new Tracker(), new ConsoleInput()).init();
     }
 
     /**
