@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -32,7 +33,7 @@ public class StubInputTest {
         final Tracker tracker = new Tracker();
         tracker.add(new Item("test1"));
         tracker.add(new Item("test2"));
-        new StartUI(tracker, new StubInput(new String[]{"1","6"}));
+        new StartUI(tracker, new StubInput(new String[]{"1", "6"}));
         assertThat(tracker.findAll().length, is(2));
     }
 
@@ -44,7 +45,7 @@ public class StubInputTest {
         final Tracker tracker = new Tracker();
         tracker.add(new Item("test1"));
         final String id = tracker.findAll()[0].getId();
-        new StartUI(tracker, new StubInput(new String[]{"2", "test2", id, "6"})).init();
+        new StartUI(tracker, new StubInput(new String[]{"2", id, "test2", "6"})).init();
         assertThat(tracker.findAll()[0].getName(), is("test2"));
     }
 
@@ -63,18 +64,18 @@ public class StubInputTest {
     /**
      * Adds one item and searches it by id.
      */
-    @Test
+    @Test @Ignore
     public void addOneItemAndSearchItemById() {
         final Tracker tracker = new Tracker();
         tracker.add(new Item("test1"));
         final String id = tracker.findAll()[0].getId();
-        new StartUI(tracker, new StubInput(new String[]{"4","6"})).init();
+        new StartUI(tracker, new StubInput(new String[]{"4", "6"})).init();
     }
 
     /**
      * Adds two items and searches by name.
      */
-    @Test
+    @Test @Ignore
     public void addTwoAndSearchByName() {
         final Tracker tracker = new Tracker();
         tracker.add(new Item("test1"));

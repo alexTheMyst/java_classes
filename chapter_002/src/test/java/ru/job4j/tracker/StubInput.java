@@ -13,6 +13,10 @@ public class StubInput implements Input {
      */
     private String[] actions;
 
+    /**
+     * Constructor.
+     * @param actions array of actions
+     */
     public StubInput(String[] actions) {
         this.actions = actions;
     }
