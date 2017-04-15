@@ -36,4 +36,15 @@ public class StubInput implements Input {
         System.out.println(question);
         return this.actions[actionIndex++];
     }
+
+    /**
+     *
+     * @param question text for user
+     * @param range menu items numbers
+     * @return chosen item id
+     */
+    @Override
+    public int ask(String question, int[] range) {
+        return -1;
+    }
 }

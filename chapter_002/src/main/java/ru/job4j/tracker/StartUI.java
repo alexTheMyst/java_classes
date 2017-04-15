@@ -37,12 +37,17 @@ public class StartUI {
      * Initialize the program.
      */
     protected void init() {
-        MenuTracker menuTracker = new MenuTracker(input, tracker);
+        MenuTracker menuTracker = new MenuTracker(this.input, this.tracker);
         menuTracker.fillActions();
+        UserAction[] userActions = menuTracker.getActions();
+        int[] validMenuNumbers = new int[userActions.length];
+        for (int index = 0; index < userActions.length; index++) {
+            validMenuNumbers[index] = userActions[index].key();
+        }
         int key = EXIT;
         do {
             menuTracker.showMenu();
-            key = Integer.parseInt(input.ask("Please choose a menu item number: "));
+            key = input.ask("Please choose a menu item number: ", validMenuNumbers);
             menuTracker.runAction(key);
         } while (key != EXIT);
     }
@@ -52,7 +57,6 @@ public class StartUI {
      * @param args program parameters as a string array
      */
     public static void main(String[] args) {
-        new StartUI(new Tracker(), new ConsoleInput()).init();
+        new StartUI(new Tracker(), new ValidateInput()).init();
     }
-
 }

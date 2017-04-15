@@ -61,6 +61,13 @@ public class MenuTracker {
             }
         }
     }
+
+    /**
+     * @return array of user actions
+     */
+    public UserAction[] getActions() {
+        return actions;
+    }
 }
 
 /**
