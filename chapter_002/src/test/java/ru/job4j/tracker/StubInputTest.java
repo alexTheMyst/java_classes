@@ -83,4 +83,12 @@ public class StubInputTest {
         final String id = tracker.findAll()[0].getId();
         new StartUI(tracker, new StubInput(new String[]{"5", "test1", "6"})).init();
     }
+
+    /**
+     * Tests MenuOutException.
+     */
+    @Test(expected = MenuOutException.class)
+    public void testMenuOutExceptio() {
+        throw new MenuOutException("Test");
+    }
 }
