@@ -6,7 +6,7 @@ package ru.job4j.tracker;
  * @version $id$
  * @since 01.04.17
  */
-public class StubInput implements Input {
+public class StubInput extends ConsoleInput {
 
     /**
      * Action sequence.
@@ -32,7 +32,7 @@ public class StubInput implements Input {
      * @return
      */
     @Override
-    public String ask(String question) {
+        public String ask(String question) {
         System.out.println(question);
         return this.actions[actionIndex++];
     }
@@ -45,6 +45,7 @@ public class StubInput implements Input {
      */
     @Override
     public int ask(String question, int[] range) {
-        return -1;
+        return super.ask(this.actions[actionIndex++],range);
+        //return -1;
     }
 }

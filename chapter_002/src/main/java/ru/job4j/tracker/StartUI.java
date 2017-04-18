@@ -24,6 +24,11 @@ public class StartUI {
     private Tracker tracker;
 
     /**
+     * MenuTracker instance.
+     */
+    private final MenuTracker menuTracker;
+
+    /**
      * Constructor.
      * @param tracker implementation
      * @param input implementation
@@ -31,15 +36,23 @@ public class StartUI {
     protected StartUI(Tracker tracker, Input input) {
         this.tracker = tracker;
         this.input = input;
+        this.menuTracker = new MenuTracker(this.input, this.tracker);
+        this.menuTracker.fillActions();
+    }
+
+    /**
+     * Getter
+     * @return MenuTracker instance.
+     */
+    public MenuTracker getMenuTracker() {
+        return this.menuTracker;
     }
 
     /**
      * Initialize the program.
      */
     protected void init() {
-        MenuTracker menuTracker = new MenuTracker(this.input, this.tracker);
-        menuTracker.fillActions();
-        UserAction[] userActions = menuTracker.getActions();
+        UserAction[] userActions = this.menuTracker.getActions();
         int[] validMenuNumbers = new int[userActions.length];
         for (int index = 0; index < userActions.length; index++) {
             validMenuNumbers[index] = userActions[index].key();
