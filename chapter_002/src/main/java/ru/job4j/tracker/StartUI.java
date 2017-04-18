@@ -41,7 +41,7 @@ public class StartUI {
     }
 
     /**
-     * Getter
+     * Getter.
      * @return MenuTracker instance.
      */
     public MenuTracker getMenuTracker() {

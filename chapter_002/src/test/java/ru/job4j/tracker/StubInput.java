@@ -38,14 +38,13 @@ public class StubInput extends ConsoleInput {
     }
 
     /**
-     *
+     * Emulates users action.
      * @param question text for user
      * @param range menu items numbers
      * @return chosen item id
      */
     @Override
     public int ask(String question, int[] range) {
-        return super.ask(this.actions[actionIndex++],range);
-        //return -1;
+        return super.ask(this.actions[actionIndex++], range);
     }
 }
