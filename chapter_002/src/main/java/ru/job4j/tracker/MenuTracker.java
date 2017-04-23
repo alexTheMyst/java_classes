@@ -34,13 +34,13 @@ public class MenuTracker {
      * Adds user action objects to the menu array.
      */
     void fillActions() {
-        this.actions[0] = new AddItem();
-        this.actions[1] = new ShowAllItems();
-        this.actions[2] = new EditItem();
-        this.actions[3] = new DeleteItem();
-        this.actions[4] = new FindItemById();
-        this.actions[5] = new FindItemsByName();
-        this.actions[6] = new ExitProgramm();
+        this.actions[0] = new AddItem("Add an item.");
+        this.actions[1] = new ShowAllItems("Show all items.");
+        this.actions[2] = new EditItem("Edit an item.");
+        this.actions[3] = new DeleteItem("Delete an item.");
+        this.actions[4] = new FindItemById("Find an item by id.");
+        this.actions[5] = new FindItemsByName("Find items by name.");
+        this.actions[6] = new ExitProgramm("Exit.");
     }
 
     /**
@@ -73,7 +73,15 @@ public class MenuTracker {
 /**
  * Contains methods to add item.
  */
-class AddItem implements UserAction {
+class AddItem extends BaseAction {
+
+    /**
+     * AddItem constructor.
+     * @param name any name as a String
+     */
+    AddItem(String name) {
+        super(name);
+    }
 
     /**
      * Generates the key.
@@ -95,20 +103,21 @@ class AddItem implements UserAction {
         tracker.add(new Item(name));
     }
 
-    /**
-     * Creates menu string.
-     * @return formatted string.
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s", key(), "Add new Item.");
-    }
 }
 
 /**
  * Contains methods to show all items.
  */
-class ShowAllItems implements UserAction {
+class ShowAllItems extends BaseAction {
+
+    /**
+     * Constructor.
+     * @param name any name as a String
+     */
+    ShowAllItems(String name) {
+        super(name);
+    }
+
     /**
      * Generates the key.
      * @return key
@@ -134,21 +143,21 @@ class ShowAllItems implements UserAction {
             System.out.println("No items found.");
         }
     }
-
-    /**
-     * Creates menu string.
-     * @return formatted string.
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s", key(), "Show all items.");
-    }
 }
 
 /**
  * Contains method for edit item object.
  */
-class EditItem implements UserAction {
+class EditItem extends BaseAction {
+
+    /**
+     * Constructor.
+     * @param name any name as a String
+     */
+    EditItem(String name) {
+        super(name);
+    }
+
     /**
      * Generates the key.
      * @return key
@@ -171,21 +180,20 @@ class EditItem implements UserAction {
         item.setId(id);
         tracker.update(item);
     }
-
-    /**
-     * Creates menu string.
-     * @return formatted string.
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s", key(), "Edit item.");
-    }
 }
 
 /**
  * Contains method for delete the item object.
  */
-class DeleteItem implements UserAction {
+class DeleteItem extends BaseAction {
+    /**
+     * Constructor.
+     * @param name any name as a String
+     */
+    DeleteItem(String name) {
+        super(name);
+    }
+
     /**
      * Generates the key.
      * @return key
@@ -207,21 +215,20 @@ class DeleteItem implements UserAction {
         itemForDelete.setId(id);
         tracker.delete(itemForDelete);
     }
-
-    /**
-     * Creates menu string.
-     * @return formatted string.
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s", key(), "Delete item.");
-    }
 }
 
 /**
  * Contains method for find item by id.
  */
-class FindItemById implements UserAction {
+class FindItemById extends BaseAction {
+    /**
+     * Constructor.
+     * @param name any name as a String
+     */
+    FindItemById(String name) {
+        super(name);
+    }
+
     /**
      * Generates the key.
      * @return key
@@ -247,21 +254,20 @@ class FindItemById implements UserAction {
             System.out.println(String.format("Item with id: %s not found.", id));
         }
     }
-
-    /**
-     * Creates menu string.
-     * @return formatted string.
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s", key(), "Find item by Id.");
-    }
 }
 
 /**
  * Contains method for find item by id.
  */
-class FindItemsByName implements UserAction {
+class FindItemsByName extends BaseAction {
+    /**
+     * Constructor.
+     * @param name any name as a String
+     */
+    FindItemsByName(String name) {
+        super(name);
+    }
+
     /**
      * Generates the key.
      * @return key
@@ -289,21 +295,20 @@ class FindItemsByName implements UserAction {
             System.out.println(String.format("Item with name:%s not found.", itemName));
         }
     }
-
-    /**
-     * Creates menu string.
-     * @return formatted string.
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s", key(), "Find item by name.");
-    }
 }
 
 /**
  * Contains method for find item by id.
  */
-class ExitProgramm implements UserAction {
+class ExitProgramm extends BaseAction {
+    /**
+     * Constructor.
+     * @param name any name as a String
+     */
+    ExitProgramm(String name) {
+        super(name);
+    }
+
     /**
      * Generates the key.
      * @return key
@@ -321,14 +326,5 @@ class ExitProgramm implements UserAction {
     @Override
     public void execute(Input input, Tracker tracker) {
         System.out.println("Bye!");
-    }
-
-    /**
-     * Creates menu string.
-     * @return formatted string.
-     */
-    @Override
-    public String info() {
-        return String.format("%s. %s", key(), "Exit.");
     }
 }
