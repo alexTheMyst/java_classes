@@ -1,4 +1,4 @@
-package ru.job4j.ru.job4j.strategy;
+package ru.job4j.strategy;
 
 /**
  * Triangle representation.
