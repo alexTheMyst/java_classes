@@ -19,8 +19,7 @@ public class Bishop extends Figure {
     }
 
     /**
-     * Returns the way to the destination cell.
-     * @param dst destination cell
+     * Returns the way to the @param dst destination cel.
      * @return array that represents the way
      * @throws ImpossibleMoveException
      */

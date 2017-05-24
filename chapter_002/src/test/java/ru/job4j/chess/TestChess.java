@@ -30,8 +30,10 @@ public class TestChess {
     @Test
     public void setFigureOnBoard() {
         final Board board = new Board();
-        final Figure bishop = new Bishop(board.getCell(0, 0));
-        assertThat(board.getCell(0, 0).occupied(), is(equalTo(true)));
+        Cell cell00 = board.getCell(0, 0);
+        Figure bishop = new Bishop(cell00);
+        board.setupFigure(bishop);
+        assertThat(board.isCellOccupied(cell00), is(equalTo(true)));
     }
 
     /**
@@ -44,6 +46,7 @@ public class TestChess {
     public void moveFigureToInvalidPosition() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         final Board board = new Board();
         final Figure bishop = new Bishop(board.getCell(0, 0));
+        board.setupFigure(bishop);
         board.move(board.getCell(0, 0), board.getCell(1, 0));
     }
 
@@ -57,8 +60,9 @@ public class TestChess {
     public void moveFigureToValidPosition() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         final Board board = new Board();
         final Figure bishop = new Bishop(board.getCell(0, 0));
+        board.setupFigure(bishop);
         board.move(board.getCell(0, 0), board.getCell(1, 1));
-        assertThat(board.getCell(1, 1).occupied(), is(equalTo(true)));
+        assertThat(board.isCellOccupied(board.getCell(1,1)), is(equalTo(true)));
     }
 
     /**
@@ -70,8 +74,10 @@ public class TestChess {
     @Test(expected = OccupiedWayException.class)
     public void moveFigureToOccupiedPosition() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         final Board board = new Board();
-        final Figure bishopOne = new Bishop(board.getCell(0, 0));
-        final Figure bishopTwo = new Bishop(board.getCell(1, 1));
+        Figure bishopOne = new Bishop(board.getCell(0, 0));
+        Figure bishopTwo = new Bishop(board.getCell(1, 1));
+        board.setupFigure(bishopOne);
+        board.setupFigure(bishopTwo);
         board.move(board.getCell(0, 0), board.getCell(2, 2));
     }
 
@@ -97,10 +103,11 @@ public class TestChess {
     public void moveDifferentDirections() throws OccupiedWayException, ImpossibleMoveException, FigureNotFoundException {
         final Board board = new Board();
         final Figure bishop = new Bishop(board.getCell(0, 0));
+        board.setupFigure(bishop);
         board.move(board.getCell(0, 0), board.getCell(7, 7));
         board.move(board.getCell(7, 7), board.getCell(3, 3));
         board.move(board.getCell(3, 3), board.getCell(2, 4));
         board.move(board.getCell(2, 4), board.getCell(4, 2));
-        assertThat(board.getCell(4, 2).occupied(), is(equalTo(true)));
+        assertThat(board.isCellOccupied(board.getCell(4, 2)), is(equalTo(true)));
     }
 }

@@ -18,7 +18,7 @@ public class Cell {
     /**
      * Figure on this cell.
      */
-    private Figure figure;
+    //private Figure figure;
 
     /**
      * Constructor.
@@ -34,30 +34,30 @@ public class Cell {
      * Set the figure on the cell.
      * @param figure some figure
      */
-    void occupy(Figure figure) {
+/*    void occupy(Figure figure) {
         this.figure = figure;
-    }
+    }*/
 
     /**
      * Clear the cell.
      */
-    void clear() {
+/*    void clear() {
         this.figure = null;
-    }
+    }*/
 
     /**
      * @return true if this cell has a figure.
      */
-    boolean occupied() {
+/*    boolean occupied() {
         return this.figure != null;
-    }
+    }*/
 
     /**
      * @return the figure
      */
-    Figure getFigure() {
+/*    Figure getFigure() {
         return this.figure;
-    }
+    }*/
 
     /**
      * @return row index
