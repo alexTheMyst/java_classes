@@ -9,6 +9,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Tests for a chess game.
+ *
  * @author Alexey Aleshin
  * @version $id$
  * @since 11.05.17
@@ -25,7 +26,7 @@ public class TestChess {
     }
 
     /**
-     *Tests that cell with figure is occupied.
+     * Tests that cell with figure is occupied.
      */
     @Test
     public void setFigureOnBoard() {
@@ -38,7 +39,8 @@ public class TestChess {
 
     /**
      * Tests that wrong movement throws ImpossibleMoveException.
-     * @throws OccupiedWayException figure can't move through occupied cells
+     *
+     * @throws OccupiedWayException    figure can't move through occupied cells
      * @throws ImpossibleMoveException figure can't move that way
      * @throws FigureNotFoundException cell doesn't have any figure
      */
@@ -52,7 +54,8 @@ public class TestChess {
 
     /**
      * Tests that figure can be moved.
-     * @throws OccupiedWayException figure can't move through occupied cells
+     *
+     * @throws OccupiedWayException    figure can't move through occupied cells
      * @throws ImpossibleMoveException figure can't move that way
      * @throws FigureNotFoundException cell doesn't have any figure
      */
@@ -62,12 +65,13 @@ public class TestChess {
         final Figure bishop = new Bishop(board.getCell(0, 0));
         board.setupFigure(bishop);
         board.move(board.getCell(0, 0), board.getCell(1, 1));
-        assertThat(board.isCellOccupied(board.getCell(1,1)), is(equalTo(true)));
+        assertThat(board.isCellOccupied(board.getCell(1, 1)), is(equalTo(true)));
     }
 
     /**
      * Tests that figure can't pass occupied cell.
-     * @throws OccupiedWayException figure can't move through occupied cells
+     *
+     * @throws OccupiedWayException    figure can't move through occupied cells
      * @throws ImpossibleMoveException figure can't move that way
      * @throws FigureNotFoundException cell doesn't have any figure
      */
@@ -83,7 +87,8 @@ public class TestChess {
 
     /**
      * Tests impossibility to move from blank cell.
-     * @throws OccupiedWayException figure can't move through occupied cells
+     *
+     * @throws OccupiedWayException    figure can't move through occupied cells
      * @throws ImpossibleMoveException figure can't move that way
      * @throws FigureNotFoundException cell doesn't have any figure
      */
@@ -95,7 +100,8 @@ public class TestChess {
 
     /**
      * Tests movements of the bishop in different directions.
-     * @throws OccupiedWayException figure can't move through occupied cells
+     *
+     * @throws OccupiedWayException    figure can't move through occupied cells
      * @throws ImpossibleMoveException figure can't move that way
      * @throws FigureNotFoundException cell doesn't have any figure
      */
