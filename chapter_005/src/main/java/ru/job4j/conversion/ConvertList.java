@@ -20,7 +20,7 @@ public class ConvertList {
      * @return list
      */
     public List toList(int[][] initialArray) {
-        final List list = new ArrayList();
+        final List<Integer> list = new ArrayList<>();
         for (int i = 0; i < initialArray.length; i++) {
             for (int j = 0; j < initialArray[i].length; j++) {
                 list.add(initialArray[i][j]);
