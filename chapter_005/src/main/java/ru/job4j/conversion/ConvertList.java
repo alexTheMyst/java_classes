@@ -1,7 +1,9 @@
 package ru.job4j.conversion;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * Contains methods to convert two dimensional array to list.
@@ -35,16 +37,15 @@ public class ConvertList {
      * @param rows        desired count of rows in a returned array
      * @return two dimensional array
      */
-    public int[][] toArray(List initialList, int rows) {
+    public int[][] toArray(List<Integer> initialList, int rows) {
         final int elementsInRow = (initialList.size() % rows == 0) ? initialList.size() / rows : initialList.size() / rows + 1;
         final int[][] result = new int[rows][elementsInRow];
-        int counter = 0;
+        Iterator<Integer> iterator = initialList.iterator();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < elementsInRow; j++) {
                 try {
-                    result[i][j] = (int) initialList.get(counter);
-                    counter++;
-                } catch (ArrayIndexOutOfBoundsException e) {
+                    result[i][j] = iterator.next();
+                } catch (NoSuchElementException e) {
                     result[i][j] = 0;
                 }
             }
