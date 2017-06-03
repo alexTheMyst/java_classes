@@ -3,7 +3,6 @@ package ru.job4j.conversion;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * Contains methods to convert two dimensional array to list.
@@ -43,9 +42,9 @@ public class ConvertList {
         Iterator<Integer> iterator = initialList.iterator();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < elementsInRow; j++) {
-                try {
+                if (iterator.hasNext()) {
                     result[i][j] = iterator.next();
-                } catch (NoSuchElementException e) {
+                } else {
                     result[i][j] = 0;
                 }
             }
