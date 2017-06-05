@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -53,5 +54,18 @@ public class ConvertListTests {
         final List initialList = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
         final int[][] testArray = {{1, 2, 3}, {4, 5, 6}, {7, 0, 0}};
         assertThat(this.convertList.toArray(initialList, 3), is(testArray));
+    }
+
+    /**
+     * Tests conversion list of arrays in the list of integers.
+     */
+    @Test
+    public void testConvertMethod() {
+        final List<int[]> initialList = new LinkedList<>();
+        initialList.add(new int[]{1, 2});
+        initialList.add(new int[]{3, 4, 5});
+        initialList.add(new int[]{6, 7, 8, 9});
+        final List<Integer> testList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+        assertThat(this.convertList.convert(initialList), is(testList));
     }
 }
