@@ -6,6 +6,7 @@ import java.util.Random;
 
 /**
  * Tracker is a array wrapper with some additional logic.
+ *
  * @author Alexey Aleshin
  * @version $id$
  * @since 23.03.17
@@ -23,6 +24,7 @@ public class Tracker {
 
     /**
      * Adds given item to the array.
+     *
      * @param item given item
      * @return inserted item
      */
@@ -34,6 +36,7 @@ public class Tracker {
 
     /**
      * Gets copy of the array of items.
+     *
      * @return Item[]
      */
     public List<Item> findAll() {
@@ -42,6 +45,7 @@ public class Tracker {
 
     /**
      * Deletes item from array.
+     *
      * @param itemToDelete to delete
      */
     public void delete(Item itemToDelete) {
@@ -50,6 +54,7 @@ public class Tracker {
 
     /**
      * Searches for items in the array by its name.
+     *
      * @param name of item to search
      * @return item with given name
      */
@@ -65,6 +70,7 @@ public class Tracker {
 
     /**
      * Searches item by id.
+     *
      * @param id to search
      * @return item with the same id
      */
@@ -81,12 +87,13 @@ public class Tracker {
 
     /**
      * Searches for item with the same id as updatedItem and updates found item.
+     *
      * @param updatedItem item to update
      */
     public void update(Item updatedItem) {
-        for (Item item : this.items) {
-            if (item != null && item.getId().equals(updatedItem.getId())) {
-                this.items.remove(item);
+        for (int i = 0; i < this.items.size(); i++) {
+            if (this.items.get(i).getId() == updatedItem.getId()) {
+                this.items.remove(i);
                 this.items.add(updatedItem);
             }
         }
