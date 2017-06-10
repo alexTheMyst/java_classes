@@ -93,8 +93,7 @@ public class Tracker {
     public void update(Item updatedItem) {
         for (int i = 0; i < this.items.size(); i++) {
             if (this.items.get(i).getId() == updatedItem.getId()) {
-                this.items.remove(i);
-                this.items.add(updatedItem);
+                this.items.set(i, updatedItem);
             }
         }
     }
