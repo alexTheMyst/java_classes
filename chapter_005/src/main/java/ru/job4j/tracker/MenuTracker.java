@@ -81,6 +81,7 @@ class AddItem extends BaseAction {
 
     /**
      * AddItem constructor.
+     * @param name some item name
      */
     AddItem(String name) {
         super(name);

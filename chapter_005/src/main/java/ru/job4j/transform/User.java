@@ -14,9 +14,13 @@ public class User {
     private final Integer id;
 
     /**
-     * Users name and city properties.
+     * Users name and name properties.
      */
     private final String name;
+
+    /**
+     * Users name and city properties.
+     */
     private final String city;
 
     /**
