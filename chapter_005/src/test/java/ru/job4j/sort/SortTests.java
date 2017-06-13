@@ -3,10 +3,8 @@ package ru.job4j.sort;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -54,14 +52,9 @@ public class SortTests {
     @Test
     public void testSortMethod() {
         final List<User> users = new LinkedList<>();
-        final Set<User> setUsers = new LinkedHashSet<>();
         users.add(this.user2);
         users.add(this.user1);
         users.add(this.user3);
-        setUsers.add(this.user3);
-        setUsers.add(this.user2);
-        setUsers.add(this.user1);
-        System.out.println("");
         for (User u : this.sortUser.sort(users)) {
             System.out.println(u.toString());
         }
