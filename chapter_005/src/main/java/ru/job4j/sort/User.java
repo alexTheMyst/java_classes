@@ -17,7 +17,7 @@ public class User implements Comparable<User> {
     /**
      * Users age.
      */
-    private final int age;
+    private final Integer age;
 
     /**
      * Constructor.
@@ -25,7 +25,7 @@ public class User implements Comparable<User> {
      * @param name some name
      * @param age  some age
      */
-    public User(String name, int age) {
+    public User(String name, Integer age) {
         this.name = name;
         this.age = age;
     }
@@ -44,7 +44,7 @@ public class User implements Comparable<User> {
      *
      * @return age as int
      */
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -57,15 +57,7 @@ public class User implements Comparable<User> {
      */
     @Override
     public int compareTo(User o) {
-        int result;
-        if (this.age == o.age) {
-            result = 0;
-        } else if (this.age < o.age) {
-            result = -1;
-        } else {
-            result = 1;
-        }
-        return result;
+        return this.age.compareTo(o.age);
     }
 
 
@@ -77,5 +69,35 @@ public class User implements Comparable<User> {
     @Override
     public String toString() {
         return String.format("%s %d", this.name, this.age);
+    }
+
+    /**
+     * Overridden equals method.
+     *
+     * @param o some object to compare.
+     * @return true if objects are equal
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        User user = (User) o;
+
+        return age.equals(user.age);
+    }
+
+    /**
+     * Overridden hashCode method.
+     *
+     * @return int as hash code
+     */
+    @Override
+    public int hashCode() {
+        return age.hashCode();
     }
 }
