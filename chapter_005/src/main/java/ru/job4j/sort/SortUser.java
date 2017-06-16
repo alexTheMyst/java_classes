@@ -1,6 +1,9 @@
 package ru.job4j.sort;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Contains sort methods implementation for a User class.
@@ -30,12 +33,8 @@ public class SortUser {
      * @return sortes list of users
      */
     public List<User> sortByNameLength(List<User> userList) {
-        Collections.sort(userList, new Comparator<User>() {
-            @Override
-            public int compare(User o1, User o2) {
-                return o1.getName().length() - o2.getName().length();
-            }
-        });
+        Collections.sort(userList, (o1, o2) ->
+                Integer.valueOf(o1.getName().length()).compareTo(o2.getName().length()));
         return userList;
     }
 
@@ -46,18 +45,9 @@ public class SortUser {
      * @return sortes list of users
      */
     public List<User> sortByAllFields(List<User> userList) {
-        Collections.sort(userList, new Comparator<User>() {
-            @Override
-            public int compare(User o1, User o2) {
-                int result;
-                if (o1.getName().compareTo(o2.getName()) == 0) {
-                    result = o1.getAge() - o2.getAge();
-                } else {
-                    result = o1.getName().compareTo(o2.getName());
-                }
-                return result;
-            }
-        });
+        Collections.sort(userList, (o1, o2) ->
+                (o1.getName().compareTo(o2.getName()) == 0) ? o1.getAge().compareTo(o2.getAge()) : o1.getName().compareTo(o2.getName())
+        );
         return userList;
     }
 }
