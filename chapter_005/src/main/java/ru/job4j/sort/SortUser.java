@@ -34,7 +34,8 @@ public class SortUser {
      */
     public List<User> sortByNameLength(List<User> userList) {
         Collections.sort(userList, (o1, o2) ->
-                Integer.valueOf(o1.getName().length()).compareTo(o2.getName().length()));
+                Integer.valueOf(o1.getName().length()).compareTo(o2.getName().length())
+        );
         return userList;
     }
 
@@ -45,8 +46,14 @@ public class SortUser {
      * @return sortes list of users
      */
     public List<User> sortByAllFields(List<User> userList) {
-        Collections.sort(userList, (o1, o2) ->
-                (o1.getName().compareTo(o2.getName()) == 0) ? o1.getAge().compareTo(o2.getAge()) : o1.getName().compareTo(o2.getName())
+        Collections.sort(userList, (o1, o2) -> {
+                    int nameCompareResult = o1.getName().compareTo(o2.getName());
+                    if (nameCompareResult == 0) {
+                        return o1.getAge().compareTo(o2.getAge());
+                    } else {
+                        return nameCompareResult;
+                    }
+                }
         );
         return userList;
     }
