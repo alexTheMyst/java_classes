@@ -1,6 +1,7 @@
 package ru.job4j.misc;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -33,6 +34,28 @@ public class Utils {
             if (counter >= positionFromEnd) {
                 result = secondIterator.next();
             }
+        }
+        return result;
+    }
+
+    /**
+     * Searches N minimal elements in unsorted collection.
+     *
+     * @param someList      list of Integers
+     * @param elementsCount number of minimal elements to find
+     * @return collection of found elements
+     */
+    static List<Integer> getMinElements(List<Integer> someList, int elementsCount) {
+        List<Integer> result = new LinkedList<>();
+        for (int i = 0; i < elementsCount; i++) {
+            Integer minElement = Integer.MAX_VALUE;
+            for (Integer currentElement : someList) {
+                if (currentElement < minElement) {
+                    minElement = currentElement;
+                }
+            }
+            result.add(minElement);
+            someList.remove(minElement);
         }
         return result;
     }
