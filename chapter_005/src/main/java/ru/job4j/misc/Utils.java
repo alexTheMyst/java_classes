@@ -20,7 +20,7 @@ public class Utils {
      * @param positionFromEnd position
      * @return an element
      */
-    static Integer getElementFromList(List<Integer> list, int positionFromEnd) {
+    Integer getElementFromList(List<Integer> list, int positionFromEnd) {
         Iterator<Integer> firstIterator = list.iterator();
         Iterator<Integer> secondIterator = null;
         int counter = 0;
@@ -45,7 +45,7 @@ public class Utils {
      * @param elementsCount number of minimal elements to find
      * @return collection of found elements
      */
-    static List<Integer> getMinElements(List<Integer> someList, int elementsCount) {
+    List<Integer> getMinElements(List<Integer> someList, int elementsCount) {
         List<Integer> result = new LinkedList<>();
         for (int i = 0; i < elementsCount; i++) {
             Integer minElement = Integer.MAX_VALUE;

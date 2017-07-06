@@ -1,5 +1,6 @@
 package ru.job4j.misc;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -19,13 +20,26 @@ import static org.junit.Assert.assertThat;
 public class AuxTaskTests {
 
     /**
+     * Utils var.
+     */
+    private Utils utils;
+
+    /**
+     * Creates nee utils var before each test.
+     */
+    @Before
+    public void setup() {
+        utils = new Utils();
+    }
+
+    /**
      * Test for Utils.getElementFromList method.
      */
     @Test
     public void whenDoSomething() {
         final List<Integer> someList = new LinkedList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
 
-        assertThat(Utils.getElementFromList(someList, 2), is(5));
+        assertThat(utils.getElementFromList(someList, 2), is(5));
     }
 
     /**
@@ -36,6 +50,6 @@ public class AuxTaskTests {
         final List<Integer> someList = new LinkedList<>(Arrays.asList(6, 4, 5, 3, 2, 1));
         final List<Integer> resultList = new LinkedList<>(Arrays.asList(1, 2));
 
-        assertThat(Utils.getMinElements(someList, 2), is(resultList));
+        assertThat(utils.getMinElements(someList, 2), is(resultList));
     }
 }
