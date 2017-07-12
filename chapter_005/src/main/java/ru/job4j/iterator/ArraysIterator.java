@@ -24,7 +24,7 @@ public class ArraysIterator implements Iterator<Integer> {
     /**
      * Counter for passed elements.
      */
-    private int elementsCount = 0;
+    private int arrayIndex = 0;
 
     /**
      * Dimensions of the array.
@@ -40,7 +40,6 @@ public class ArraysIterator implements Iterator<Integer> {
         this.array = array;
         rowsCount = array.length;
         columnsCount = array[0].length;
-        elementsCount = rowsCount * columnsCount;
     }
 
     /**
@@ -50,7 +49,7 @@ public class ArraysIterator implements Iterator<Integer> {
      */
     @Override
     public boolean hasNext() {
-        return elementIndex < elementsCount - 1;
+        return (elementIndex != columnsCount - 1 || arrayIndex != rowsCount - 1);
     }
 
     /**
@@ -60,13 +59,12 @@ public class ArraysIterator implements Iterator<Integer> {
      */
     @Override
     public Integer next() {
-        Integer res;
-        elementIndex++;
-        if (elementIndex < this.columnsCount) {
-            res = array[0][elementIndex];
-        } else {
-            res = array[elementIndex / this.columnsCount][elementIndex % columnsCount];
+        if (elementIndex < columnsCount - 1) {
+            elementIndex++;
+        } else if (arrayIndex < rowsCount) {
+            elementIndex = 0;
+            arrayIndex++;
         }
-        return res;
+        return array[arrayIndex][elementIndex];
     }
 }
