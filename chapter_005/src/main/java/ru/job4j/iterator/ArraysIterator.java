@@ -38,8 +38,8 @@ public class ArraysIterator implements Iterator<Integer> {
      */
     public ArraysIterator(int[][] array) {
         this.array = array;
-        rowsCount = array.length;
-        columnsCount = array[0].length;
+        rowsCount = array.length - 1;
+        columnsCount = array[0].length - 1;
     }
 
     /**
@@ -49,7 +49,7 @@ public class ArraysIterator implements Iterator<Integer> {
      */
     @Override
     public boolean hasNext() {
-        return (elementIndex != columnsCount - 1 || arrayIndex != rowsCount - 1);
+        return (elementIndex < columnsCount || arrayIndex < rowsCount);
     }
 
     /**
@@ -59,7 +59,7 @@ public class ArraysIterator implements Iterator<Integer> {
      */
     @Override
     public Integer next() {
-        if (elementIndex < columnsCount - 1) {
+        if (elementIndex < columnsCount) {
             elementIndex++;
         } else if (arrayIndex < rowsCount) {
             elementIndex = 0;
