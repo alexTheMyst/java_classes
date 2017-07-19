@@ -1,13 +1,10 @@
 package ru.job4j.collections;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -37,6 +34,7 @@ public class Tests {
     /**
      * Tests ArrayList.
      */
+    @Ignore
     @Test
     public void testArrayList() {
         final List arrayList = new ArrayList();
@@ -48,6 +46,7 @@ public class Tests {
     /**
      * Tests LinkedList.
      */
+    @Ignore
     @Test
     public void testLinkedList() {
         final List linkedlist = new LinkedList();
@@ -60,12 +59,12 @@ public class Tests {
     /**
      * Tests TreeSet.
      */
+    @Ignore
     @Test
     public void testTreeSet() {
         final Set treeSet = new TreeSet();
         this.performanceTester.add(treeSet, 1000000);
         this.performanceTester.delete(treeSet, 10000);
         assertThat(treeSet.size(), is(990000));
-
     }
 }

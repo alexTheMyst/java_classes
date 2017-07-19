@@ -10,7 +10,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
- * Tests for eve numbers iterator.
+ * Tests for even numbers iterator.
  *
  * @author Alexey Aleshin
  * @version $id$
