@@ -21,13 +21,17 @@ public class PrimeNumberIterator implements Iterator<Integer> {
     private int nextPrimeNumberIndex = -1;
 
     /**
+     * Index of previous prime number in numbers array.
+     */
+    private int previousPrimeNumberIndex = -1;
+
+    /**
      * Assigns array and tries to find next prime number in the numbers array.
      *
      * @param numbers any array of int
      */
     public PrimeNumberIterator(final int[] numbers) {
         this.numbers = numbers;
-        this.findNextPrimeIndex(0);
     }
 
     /**
@@ -37,6 +41,9 @@ public class PrimeNumberIterator implements Iterator<Integer> {
      */
     @Override
     public boolean hasNext() {
+        if (this.previousPrimeNumberIndex == -1) {
+            this.findNextPrimeIndex(0);
+        }
         return this.nextPrimeNumberIndex >= 0;
     }
 
@@ -48,6 +55,7 @@ public class PrimeNumberIterator implements Iterator<Integer> {
     @Override
     public Integer next() {
         final Integer result = this.numbers[nextPrimeNumberIndex];
+        this.previousPrimeNumberIndex = this.nextPrimeNumberIndex;
         this.findNextPrimeIndex(++this.nextPrimeNumberIndex);
         return result;
     }
@@ -63,12 +71,13 @@ public class PrimeNumberIterator implements Iterator<Integer> {
         //checks that number is even
         if (number % 2 == 0) {
             result = false;
-        }
-        //checks that number divides with any odd number
-        for (int i = 3; i < number; i += 2) {
-            if (number % i == 0) {
-                result = false;
-                break;
+        } else {
+            //checks that number divides with any odd number
+            for (int i = 3; i < number; i += 2) {
+                if (number % i == 0) {
+                    result = false;
+                    break;
+                }
             }
         }
         return result;
