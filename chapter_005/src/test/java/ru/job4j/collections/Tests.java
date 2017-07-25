@@ -4,7 +4,12 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
