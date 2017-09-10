@@ -18,6 +18,11 @@ public class MyLinkedList<E> implements Iterable<E> {
     private Node<E> firstElement, lastElement;
 
     /**
+     * Stores size of the list.
+     */
+    private int size;
+
+    /**
      * Adds the element to the list.
      *
      * @param element some element
@@ -31,6 +36,7 @@ public class MyLinkedList<E> implements Iterable<E> {
             this.lastElement.nextElement = newNode;
             this.lastElement = newNode;
         }
+        this.size++;
     }
 
     /**
@@ -63,6 +69,51 @@ public class MyLinkedList<E> implements Iterable<E> {
     @Override
     public Iterator<E> iterator() {
         return new MyLinkedListIterator();
+    }
+
+    /**
+     * Size getter.
+     *
+     * @return the size variable
+     */
+    public int getSize() {
+        return this.size;
+    }
+
+
+    /**
+     * Deletes the element with given index.
+     *
+     * @param index element index
+     */
+    public void delete(int index) {
+        if (index == 0 && this.size == 1) {
+            this.firstElement = null;
+            this.lastElement = null;
+            this.size--;
+        } else if (index < this.size) {
+            int counter = 0;
+            Node<E> previousEntity = null;
+            Node<E> currentEntity = this.firstElement;
+            Node<E> nextEntity = currentEntity.nextElement;
+            while (counter < this.size - 1 && counter != index) {
+                previousEntity = currentEntity;
+                currentEntity = nextEntity;
+                nextEntity = currentEntity.nextElement;
+                counter++;
+            }
+            if (previousEntity == null) {
+                this.firstElement = nextEntity;
+
+            }
+            if (nextEntity == null) {
+                this.lastElement = previousEntity;
+            }
+            if (previousEntity != null && nextEntity != null) {
+                previousEntity.nextElement = nextEntity;
+            }
+            size--;
+        }
     }
 
     /**
