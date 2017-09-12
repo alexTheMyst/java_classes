@@ -10,7 +10,7 @@ import java.util.Iterator;
  * @version $id$
  * @since 05.09.17
  */
-public class MyLinkedList<E> implements Iterable<E> {
+public class SimpleLinkedList<E> implements Iterable<E> {
 
     /**
      * Links for first and last elements of the list.

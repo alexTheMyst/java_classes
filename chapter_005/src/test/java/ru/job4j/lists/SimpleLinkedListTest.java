@@ -17,18 +17,18 @@ import static org.junit.Assert.assertThat;
  * @version $id$
  * @since 05.09.17
  */
-public class MyLinkedListTest {
+public class SimpleLinkedListTest {
     /**
      * List of Integer.
      */
-    private MyLinkedList<Integer> myList;
+    private SimpleLinkedList<Integer> myList;
 
     /**
      * Creates new list before each test.
      */
     @Before
     public void setup() {
-        myList = new MyLinkedList<>();
+        myList = new SimpleLinkedList<>();
     }
 
     /**

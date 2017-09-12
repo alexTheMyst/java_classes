@@ -11,7 +11,7 @@ import java.util.Iterator;
  * @version $id$
  * @since 31.08.17
  */
-public class MyArrayList<E> implements Iterable<E> {
+public class SimpleArrayList<E> implements Iterable<E> {
     /**
      * Default array size.
      */
@@ -30,7 +30,7 @@ public class MyArrayList<E> implements Iterable<E> {
     /**
      * Constructor.
      */
-    public MyArrayList() {
+    public SimpleArrayList() {
         this.array = new Object[DEFAULT_SIZE];
     }
 

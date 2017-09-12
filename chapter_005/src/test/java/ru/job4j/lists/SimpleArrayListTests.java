@@ -17,18 +17,18 @@ import static org.junit.Assert.assertThat;
  * @version $id$
  * @since 31.08.17
  */
-public class MyArrayListTests {
+public class SimpleArrayListTests {
     /**
      * List of integers.
      */
-    private MyArrayList<Integer> myArrayList;
+    private SimpleArrayList<Integer> simpleArrayList;
 
     /**
      * Runs before each test.
      */
     @Before
-    public void setMyArrayList() {
-        this.myArrayList = new MyArrayList<>();
+    public void setSimpleArrayList() {
+        this.simpleArrayList = new SimpleArrayList<>();
     }
 
     /**
@@ -36,9 +36,9 @@ public class MyArrayListTests {
      */
     @Test
     public void whenAddOneAndGetThenReturnsSameValue() {
-        this.myArrayList.add(1);
+        this.simpleArrayList.add(1);
 
-        assertThat(this.myArrayList.get(0), is(1));
+        assertThat(this.simpleArrayList.get(0), is(1));
     }
 
     /**
@@ -49,8 +49,8 @@ public class MyArrayListTests {
         final List<Integer> originalList = Arrays.asList(1, 2, 3, 4, 5);
         final List<Integer> testList = new ArrayList<>();
 
-        originalList.forEach(this.myArrayList::add);
-        this.myArrayList.forEach(testList::add);
+        originalList.forEach(this.simpleArrayList::add);
+        this.simpleArrayList.forEach(testList::add);
 
         assertThat(testList, is(originalList));
     }
@@ -61,9 +61,9 @@ public class MyArrayListTests {
     @Test
     public void whenAddManyValuesThanArrayAutomaticallyResized() {
         for (int i = 0; i < 100; i++) {
-            this.myArrayList.add(i);
+            this.simpleArrayList.add(i);
         }
 
-        assertThat(this.myArrayList.get(99), is(99));
+        assertThat(this.simpleArrayList.get(99), is(99));
     }
 }

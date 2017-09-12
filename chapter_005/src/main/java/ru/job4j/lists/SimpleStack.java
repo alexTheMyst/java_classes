@@ -12,7 +12,7 @@ public class SimpleStack<T> {
     /**
      * Store for the stack elements.
      */
-    private final MyLinkedList<T> store = new MyLinkedList<>();
+    private final SimpleLinkedList<T> store = new SimpleLinkedList<>();
 
     /**
      * Returns the element from the stack.

@@ -12,7 +12,7 @@ public class SimpleQueue<T> {
     /**
      * Store for the queue elements.
      */
-    private final MyLinkedList<T> store = new MyLinkedList<>();
+    private final SimpleLinkedList<T> store = new SimpleLinkedList<>();
 
     /**
      * Returns the element from the queue.
