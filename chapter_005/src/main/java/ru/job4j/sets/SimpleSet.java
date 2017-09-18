@@ -2,6 +2,7 @@ package ru.job4j.sets;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Simple set implementation using array.
@@ -51,19 +52,11 @@ public class SimpleSet<E> implements Iterable<E> {
      * @param entry some entity
      */
     public void add(E entry) {
-        boolean hasCopy = false;
-        for (int i = 0; i < this.size; i++) {
-            if (this.store[i].equals(entry)) {
-                hasCopy = true;
-                break;
-            }
-        }
-        if (!hasCopy) {
+        if (!hasCopy(entry)) {
             this.store[size++] = entry;
         }
         if (this.store.length - 1 == this.size) {
-            int increasedLength = this.store.length + (this.store.length >> 1);
-            this.store = Arrays.copyOf(this.store, increasedLength);
+            increaseStoreSize();
         }
     }
 
@@ -74,6 +67,31 @@ public class SimpleSet<E> implements Iterable<E> {
      */
     public int getSize() {
         return size;
+    }
+
+    /**
+     * Increases size of the store.
+     */
+    private void increaseStoreSize() {
+        int increasedLength = this.store.length + (this.store.length >> 1);
+        this.store = Arrays.copyOf(this.store, increasedLength);
+    }
+
+    /**
+     * Checks that set already has such element.
+     *
+     * @param entry some entry
+     * @return true if set already has such element or false otherwise
+     */
+    private boolean hasCopy(E entry) {
+        boolean hasCopy = false;
+        for (int i = 0; i < this.size; i++) {
+            if (this.store[i].equals(entry)) {
+                hasCopy = true;
+                break;
+            }
+        }
+        return hasCopy;
     }
 
     /**
@@ -92,6 +110,7 @@ public class SimpleSet<E> implements Iterable<E> {
          */
         @Override
         public boolean hasNext() {
+            emptySetCheck();
             return this.lastReturnedIndex < size;
         }
 
@@ -103,7 +122,23 @@ public class SimpleSet<E> implements Iterable<E> {
         @SuppressWarnings("unchecked")
         @Override
         public E next() {
-            return (E) store[lastReturnedIndex++];
+            E result;
+            emptySetCheck();
+            try {
+                result = (E) store[lastReturnedIndex++];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new NoSuchElementException();
+            }
+            return result;
+        }
+
+        /**
+         * Checks that set is empty.
+         */
+        private void emptySetCheck() {
+            if (size == 0) {
+                throw new NoSuchElementException();
+            }
         }
     }
 }
