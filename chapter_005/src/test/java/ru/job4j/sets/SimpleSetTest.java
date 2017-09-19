@@ -67,7 +67,7 @@ public class SimpleSetTest {
     }
 
     /**
-     * Endless loop for iterator next method.
+     * Loop with size + 1 steps for iterator next method should throw exception.
      */
     @Test(expected = NoSuchElementException.class)
     public void whenAskMoreThanNeededThenException() {
@@ -75,9 +75,10 @@ public class SimpleSetTest {
         this.set.add(2);
         this.set.add(3);
         Iterator<Integer> iterator = this.set.iterator();
-        while (true) {
+        int counter = 0;
+        while (counter < 4) {
             iterator.next();
+            counter++;
         }
     }
-
 }

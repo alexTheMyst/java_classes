@@ -124,9 +124,9 @@ public class SimpleSet<E> implements Iterable<E> {
         public E next() {
             E result;
             emptySetCheck();
-            try {
+            if (this.lastReturnedIndex < size) {
                 result = (E) store[lastReturnedIndex++];
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } else {
                 throw new NoSuchElementException();
             }
             return result;
