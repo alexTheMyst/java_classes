@@ -109,7 +109,6 @@ public class SimpleLinkedSet<E> implements Iterable<E> {
          */
         @Override
         public boolean hasNext() {
-            checkEmptyList();
             return (this.nodeToReturn != null);
         }
 
