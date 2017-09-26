@@ -20,6 +20,10 @@ public class SimpleLinkedSet<E> implements Iterable<E> {
      * Link to the last element of list.
      */
     private Node<E> lastNode;
+    /**
+     * Set size.
+     */
+    private int size;
 
     /**
      * Adds given element to list.
@@ -31,12 +35,21 @@ public class SimpleLinkedSet<E> implements Iterable<E> {
         if (firstNode == null) {
             this.firstNode = newNode;
             this.lastNode = newNode;
-        } else {
-            if (!isCopy(elementValue)) {
-                this.lastNode.next = newNode;
-                this.lastNode = newNode;
-            }
+            this.size++;
+        } else if (!isCopy(elementValue)) {
+            this.lastNode.next = newNode;
+            this.lastNode = newNode;
+            this.size++;
         }
+    }
+
+    /**
+     * Size getter.
+     *
+     * @return size value.
+     */
+    public int getSize() {
+        return size;
     }
 
     /**
