@@ -69,7 +69,7 @@ public class SimpleSetImprovedTest {
     public void performanceMeasurements() {
         final SimpleSet<Integer> setWithArray = new SimpleSet<>();
         final SimpleLinkedSet<Integer> setWithLinkedList = new SimpleLinkedSet<>();
-        final SimpleSetImproved<Integer> set100 = new SimpleSetImproved<>(10_000);
+        final SimpleSetImproved<Integer> set100 = new SimpleSetImproved<>(1000);
         final Set<Integer> javaSet = new HashSet<>();
         final int testSize = 10_000;
         long startTime = System.currentTimeMillis();
@@ -96,7 +96,7 @@ public class SimpleSetImprovedTest {
         for (int i = 0; i < testSize; i++) {
             set100.add(i);
         }
-        System.out.printf("Inserted %d values in improved set with 10000 buckets  %d ms\n", testSize, System.currentTimeMillis() - startTime);
+        System.out.printf("Inserted %d values in improved set with 1000 buckets  %d ms\n", testSize, System.currentTimeMillis() - startTime);
 
         startTime = System.currentTimeMillis();
         for (int i = 0; i < testSize; i++) {

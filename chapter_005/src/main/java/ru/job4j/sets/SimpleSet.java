@@ -110,7 +110,6 @@ public class SimpleSet<E> implements Iterable<E> {
          */
         @Override
         public boolean hasNext() {
-            emptySetCheck();
             return this.lastReturnedIndex < size;
         }
 
