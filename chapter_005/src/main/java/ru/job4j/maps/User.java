@@ -70,4 +70,33 @@ public class User {
         result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
         return result;
     }
+
+    /**
+     * Checks equality with given object.
+     *
+     * @param o some object
+     * @return true if object equals
+     */
+    @Override
+    public boolean equals(Object o) {
+        boolean result = true;
+        if (this == o) {
+            result = true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            result = false;
+        }
+        User user = (User) o;
+        if (children != user.children) {
+            result = false;
+        }
+        if (name != null ? !name.equals(user.name) : user.name != null) {
+            result = false;
+        }
+        if (birthday != null ? !birthday.equals(user.birthday) : user.birthday != null) {
+            result = false;
+        }
+        return result;
+    }
+
 }
