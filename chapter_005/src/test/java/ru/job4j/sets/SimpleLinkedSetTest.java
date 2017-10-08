@@ -46,7 +46,7 @@ public class SimpleLinkedSetTest {
         set.add(1);
         set.add(2);
         set.add(3);
-        for (Iterator<Integer> iterator = set.iterator(); iterator.hasNext(); ) {
+        for (Iterator<Integer> iterator = set.iterator(); iterator.hasNext();) {
             sumResult += iterator.next();
         }
 

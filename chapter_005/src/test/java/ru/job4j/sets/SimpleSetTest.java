@@ -51,7 +51,7 @@ public class SimpleSetTest {
         this.set.add(1);
         this.set.add(2);
         this.set.add(3);
-        for (Iterator<Integer> iterator = this.set.iterator(); iterator.hasNext(); ) {
+        for (Iterator<Integer> iterator = this.set.iterator(); iterator.hasNext();) {
             sumResult += iterator.next();
         }
 
