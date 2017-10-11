@@ -57,6 +57,19 @@ public class User {
                 + '}';
     }
 
+    /**
+     * Overridden hashCode method.
+     *
+     * @return int as a hash code
+     */
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + children;
+        result = 31 * result + (birthday != null ? birthday.hashCode() : 0);
+        return result;
+    }
 
     /**
      * Checks equality with given object.
