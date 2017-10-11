@@ -25,8 +25,13 @@ public class UserTest {
         final User userTwo = new User("test", 1, calendar);
         final Map<User, Object> users = new HashMap<>();
 
-        users.put(userOne, new Object());
-        users.put(userTwo, new Object());
+        Object o1 = new Object();
+        Object o2 = new Object();
+
+        System.out.printf("first object = %s, second object = %s\n", o1, o2);
+
+        users.put(userOne, o1);
+        users.put(userTwo, o2);
 
         System.out.printf("HashCode equals: %s \n", userOne.hashCode() == userTwo.hashCode());
         System.out.printf("Object equals: %s \n", userOne.equals(userTwo));
