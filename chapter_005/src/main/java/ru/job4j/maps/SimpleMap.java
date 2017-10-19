@@ -16,114 +16,7 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Entity<K, V>> {
     /**
      * Default store size.
      */
-    public static final int DEFAULT_SIZE = 100;
-
-    /**
-     * Store.
-     */
-    private Object[] store;
-
-    /**
-     * Stored object counter.
-     */
-    private int size = 0;
-
-    /**
-     * Default constructor.
-     */
-    public SimpleMap() {
-        this(DEFAULT_SIZE);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param size initial array size
-     */
-    public SimpleMap(int size) {
-        this.store = new Object[size];
-    }
-
-    /**
-     * Inserts key-value pair to map.
-     *
-     * @param key   entity key
-     * @param value entity value
-     * @return true if bucket is not occupied and false otherwise
-     */
-    boolean insert(K key, V value) {
-        boolean result = false;
-        int bucketIndex = getIndexBucket(key);
-        if (isBucketEmpty(bucketIndex)) {
-            Entity<K, V> entity = new Entity<>(key, value);
-            store[bucketIndex] = entity;
-            this.size++;
-            result = true;
-        }
-        return result;
-    }
-
-    /**
-     * Get a value for a key.
-     *
-     * @param key some key
-     * @return value for given key or null otherwise
-     */
-    V get(K key) {
-        V result = null;
-        int indexBucket = getIndexBucket(key);
-        if (!isBucketEmpty(indexBucket)) {
-            Entity<K, V> entity = (Entity<K, V>) store[indexBucket];
-            result = entity.value;
-        }
-        return result;
-    }
-
-    /**
-     * Delete key-value pair with given key.
-     *
-     * @param key some key
-     * @return true if deletion completed or false if entity with such key not found
-     */
-    boolean delete(K key) {
-        boolean result = false;
-        int indexBucket = getIndexBucket(key);
-        if (!isBucketEmpty(indexBucket)) {
-            this.store[indexBucket] = null;
-            this.size--;
-            result = true;
-        }
-        return result;
-    }
-
-    /**
-     * Creates iterator instance.
-     *
-     * @return iterator
-     */
-    public Iterator<Entity<K, V>> iterator() {
-        return new SimpleMapEntityIterator();
-    }
-
-    /**
-     * Checks bucket.
-     *
-     * @param bucketIndex index
-     * @return true if bucket with index is empty or false otherwise
-     */
-    private boolean isBucketEmpty(int bucketIndex) {
-        return store[bucketIndex] == null;
-    }
-
-    /**
-     * Gets index of bucket for given key.
-     *
-     * @param key some key
-     * @return int as result
-     */
-    private int getIndexBucket(K key) {
-        return key.hashCode() % store.length;
-    }
+    private static final int DEFAULT_SIZE = 100;
 
     /**
      * Represents simple entity.
@@ -132,15 +25,15 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Entity<K, V>> {
      * @param <V> value type
      */
     public static class Entity<K, V> {
+
         /**
          * The key.
          */
-        private K key;
+        private final K key;
         /**
          * The value.
          */
-        private V value;
-
+        private final V value;
 
         /**
          * Constructor.
@@ -157,7 +50,7 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Entity<K, V>> {
          * Checks equality with given object.
          *
          * @param o some object
-         * @return true if quals and false otherwise
+         * @return true if equals and false otherwise
          */
         @Override
         public boolean equals(Object o) {
@@ -170,10 +63,7 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Entity<K, V>> {
 
             Entity<?, ?> entity = (Entity<?, ?>) o;
 
-            if (key != null ? !key.equals(entity.key) : entity.key != null) {
-                return false;
-            }
-            return value != null ? value.equals(entity.value) : entity.value == null;
+            return (key != null ? key.equals(entity.key) : entity.key == null) && (value != null ? value.equals(entity.value) : entity.value == null);
         }
 
         /**
@@ -201,7 +91,6 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Entity<K, V>> {
                     + value
                     + '}';
         }
-
     }
 
     /**
@@ -237,7 +126,7 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Entity<K, V>> {
             Entity<K, V> result = null;
             try {
                 while (result == null) {
-                    result = (Entity<K, V>) store[lastReturnedEntityIndex++];
+                    result = getEntity(lastReturnedEntityIndex++);
                 }
                 returnedElementsCounter++;
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -245,5 +134,122 @@ public class SimpleMap<K, V> implements Iterable<SimpleMap.Entity<K, V>> {
             }
             return result;
         }
+    }
+
+    /**
+     * Store.
+     */
+    private final Object[] store;
+
+    /**
+     * Stored object counter.
+     */
+    private int size = 0;
+
+    /**
+     * Default constructor.
+     */
+    SimpleMap() {
+        this(DEFAULT_SIZE);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param size initial array size
+     */
+    SimpleMap(int size) {
+        this.store = new Object[size];
+    }
+
+    /**
+     * Inserts key-value pair to map.
+     *
+     * @param key   entity key
+     * @param value entity value
+     * @return true if bucket is not occupied and false otherwise
+     */
+    boolean insert(K key, V value) {
+        boolean result = false;
+        int bucketIndex = getIndexBucket(key);
+        if (isBucketEmpty(bucketIndex)) {
+            store[bucketIndex] = new Entity<>(key, value);
+            this.size++;
+            result = true;
+        }
+        return result;
+    }
+
+    /**
+     * Get a value for a key.
+     *
+     * @param key some key
+     * @return value for given key or null otherwise
+     */
+    V get(K key) {
+        V result = null;
+        int indexBucket = getIndexBucket(key);
+        if (!isBucketEmpty(indexBucket)) {
+            Entity<K, V> entity = getEntity(indexBucket);
+            result = (entity.key.equals(key)) ? entity.value : null;
+        }
+        return result;
+    }
+
+    /**
+     * Delete key-value pair with given key.
+     *
+     * @param key some key
+     * @return true if deletion completed or false if entity with such key not found
+     */
+    boolean delete(K key) {
+        boolean result = false;
+        int indexBucket = getIndexBucket(key);
+        if (!isBucketEmpty(indexBucket) && getEntity(indexBucket).key.equals(key)) {
+            this.store[indexBucket] = null;
+            this.size--;
+            result = true;
+        }
+        return result;
+    }
+
+    /**
+     * Creates iterator instance.
+     *
+     * @return iterator
+     */
+    public Iterator<Entity<K, V>> iterator() {
+        return new SimpleMapEntityIterator();
+    }
+
+    /**
+     * Gets entity for the index.
+     *
+     * @param index bucket index
+     * @return entity
+     */
+    @SuppressWarnings("unchecked")
+    private Entity<K, V> getEntity(int index) {
+        return (Entity<K, V>) this.store[index];
+    }
+
+    /**
+     * Checks bucket.
+     *
+     * @param bucketIndex index
+     * @return true if bucket with index is empty or false otherwise
+     */
+    private boolean isBucketEmpty(int bucketIndex) {
+        return store[bucketIndex] == null;
+    }
+
+    /**
+     * Gets index of bucket for given key.
+     *
+     * @param key some key
+     * @return int as result
+     */
+    private int getIndexBucket(K key) {
+        return Math.abs(key.hashCode() % store.length);
     }
 }
