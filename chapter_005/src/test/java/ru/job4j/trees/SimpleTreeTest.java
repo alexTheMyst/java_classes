@@ -102,5 +102,18 @@ public class SimpleTreeTest {
         assertThat(this.tree.add(1, 1), is(false));
     }
 
-
+    /**
+     * Creates a tree with height more than three.
+     */
+    @Test
+    public void whenTreeIsHeightMoreThanThree() {
+        this.tree.add(null, 50);
+        this.tree.add(50, 70);
+        this.tree.add(50, 30);
+        this.tree.add(30, 15);
+        this.tree.add(30, 45);
+        this.tree.add(70, 90);
+        this.tree.add(70, 60);
+        this.tree.add(45, 7);
+    }
 }

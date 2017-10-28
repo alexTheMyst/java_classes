@@ -3,6 +3,7 @@ package ru.job4j.trees;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * SimpleTree implementation.
@@ -47,13 +48,15 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      */
     private Node<E> findParentNode(E value) {
         Node<E> result = new Node<>();
-        if (isNodeHasSameValue(this.treeRoot, value)) {
-            result = this.treeRoot;
-        } else {
-            for (Node<E> node : this.treeRoot.children) {
-                if (isNodeHasSameValue(node, value)) {
-                    result = node;
-                }
+        Queue<Node<E>> nodesToProcess = new LinkedList<>();
+        nodesToProcess.add(this.treeRoot);
+        while (!nodesToProcess.isEmpty()) {
+            Node<E> node = nodesToProcess.remove();
+            if (node.value.equals(value)) {
+                result = node;
+                break;
+            } else if (node.children.size() > 0) {
+                nodesToProcess.addAll(node.children);
             }
         }
         return result;
@@ -109,11 +112,6 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         node.children = new LinkedList<>();
         return node;
     }
-
-    private boolean isNodeHasSameValue(Node<E> node, E value) {
-        return node.value.equals(value);
-    }
-
 
     /**
      * Iterator implementation.
