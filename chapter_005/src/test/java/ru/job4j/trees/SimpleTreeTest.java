@@ -116,4 +116,48 @@ public class SimpleTreeTest {
         this.tree.add(70, 60);
         this.tree.add(45, 7);
     }
+
+    /**
+     * Checks that tree is binary.
+     */
+    @Test
+    public void whenTreeIsBinaryThenCheckReturnsTrue() {
+        this.tree.add(null, 1);
+        this.tree.add(1, 2);
+        this.tree.add(1, 3);
+
+        assertThat(this.tree.isBinary(), is(true));
+    }
+
+    /**
+     * Checks that tree is not binary.
+     */
+    @Test
+    public void whenTreeIsNotBinaryThenCheckReturnsFalse() {
+        this.tree.add(null, 1);
+        this.tree.add(1, 2);
+        this.tree.add(1, 3);
+        this.tree.add(1, 4);
+
+        assertThat(this.tree.isBinary(), is(false));
+    }
+
+    /**
+     * Creates a tree with height more than three and checks that it not binary.
+     */
+    @Test
+    public void whenHighTreeIsNotBinaryThenFalse() {
+        this.tree.add(null, 50);
+        this.tree.add(50, 70);
+        this.tree.add(50, 30);
+        this.tree.add(30, 15);
+        this.tree.add(30, 45);
+        this.tree.add(70, 90);
+        this.tree.add(70, 60);
+        this.tree.add(45, 7);
+        this.tree.add(45, 8);
+        this.tree.add(45, 9);
+
+        assertThat(this.tree.isBinary(), is(false));
+    }
 }

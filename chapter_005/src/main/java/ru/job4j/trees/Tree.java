@@ -22,20 +22,45 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      * Adds new element in the tree.
      *
      * @param parent parent node
-     * @param child child node
+     * @param child  child node
      * @return true if child added or false otherwise
      */
     @Override
     public boolean add(E parent, E child) {
         boolean result = false;
         if (parent == null && this.treeRoot == null) {
-            this.treeRoot = createNode(child);
+            this.treeRoot = new Node<>(child);
             result = true;
         } else if (!isValueExists(child)) {
             Node<E> parentNode = findParentNode(parent);
-            Node<E> childNode = createNode(child);
+            Node<E> childNode = new Node<>(child);
             parentNode.children.add(childNode);
             result = true;
+        }
+        return result;
+    }
+
+    /**
+     * Checks if the tree binary.
+     *
+     * @return true if the tree binary or false otherwise
+     */
+    public boolean isBinary() {
+        boolean result = true;
+        if (isNodeNotBinary(this.treeRoot)) {
+            result = false;
+        } else {
+            Queue<Node<E>> nodesToProcess = new LinkedList<>();
+            nodesToProcess.add(this.treeRoot);
+            while (!nodesToProcess.isEmpty()) {
+                Node<E> node = nodesToProcess.remove();
+                if (this.isNodeNotBinary(node)) {
+                    result = false;
+                    break;
+                } else if (node.children.size() > 0) {
+                    nodesToProcess.addAll(node.children);
+                }
+            }
         }
         return result;
     }
@@ -80,6 +105,16 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     }
 
     /**
+     * Checks is node binary.
+     *
+     * @param node some node
+     * @return true if node has two or less children
+     */
+    private boolean isNodeNotBinary(Node<E> node) {
+        return node.children.size() > 2;
+    }
+
+    /**
      * Creates new iterator instance.
      *
      * @return link to iterator
@@ -95,22 +130,32 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
      * @param <T> type parameter
      */
     class Node<T> {
-        List<Node<T>> children;
+        /**
+         * List of children.
+         */
+        final List<Node<T>> children;
+        /**
+         * Node value.
+         */
         T value;
 
-    }
+        /**
+         * Default constructor.
+         */
+        Node() {
+            this.children = new LinkedList<>();
+        }
 
-    /**
-     * Creates new node instance.
-     *
-     * @param value node value
-     * @return link to the new node
-     */
-    private Node<E> createNode(E value) {
-        Node<E> node = new Node<>();
-        node.value = value;
-        node.children = new LinkedList<>();
-        return node;
+        /**
+         * Constructor with value.
+         *
+         * @param value value to set.
+         */
+        Node(T value) {
+            this();
+            this.value = value;
+        }
+
     }
 
     /**
