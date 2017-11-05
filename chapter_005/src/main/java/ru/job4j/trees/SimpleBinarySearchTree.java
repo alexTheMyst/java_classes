@@ -82,7 +82,7 @@ public class SimpleBinarySearchTree<E extends Comparable<E>> implements Iterable
          * @param value some value
          */
         void add(E value) {
-            if (this.value.compareTo(value) < 0) {
+            if (this.value.compareTo(value) > 0) {
                 if (this.leftChildNode == null) {
                     this.leftChildNode = new Node<>(value);
                 } else {
@@ -120,7 +120,7 @@ public class SimpleBinarySearchTree<E extends Comparable<E>> implements Iterable
          */
         @Override
         public boolean hasNext() {
-            return rootNode != null && elementsToReturn.size() > 0;
+            return elementsToReturn.size() > 0 || (rootNode != null && lastReturned == null);
         }
 
         /**

@@ -46,12 +46,14 @@ public class SimpleBinarySearchTreeTest {
      */
     @Test
     public void whenAddElementToTreeThenIteratorReturnsSorted() {
-        final List<Integer> resultList = Arrays.asList(6, 3);
+        final List<Integer> resultList = Arrays.asList(4, 3, 6);
         final List<Integer> testList = new LinkedList<>();
+        this.tree.add(4);
         this.tree.add(6);
         this.tree.add(3);
 
         Iterator<Integer> iterator = this.tree.iterator();
+        testList.add(iterator.next());
         testList.add(iterator.next());
         testList.add(iterator.next());
 
@@ -63,10 +65,28 @@ public class SimpleBinarySearchTreeTest {
      */
     @Test(expected = NoSuchElementException.class)
     public void whenAddOneToEmptyTreeThenAskTwoGetsException() {
-        tree.add(1);
+        this.tree.add(1);
 
         Iterator<Integer> iterator = this.tree.iterator();
         iterator.next();
         iterator.next();
+    }
+
+    /**
+     * Checks hasNext method.
+     */
+    @Test
+    public void whenAddOneElementThanHasNextIsTrue() {
+        this.tree.add(1);
+
+        assertThat(this.tree.iterator().hasNext(), is(true));
+    }
+
+    /**
+     * Checks hasNext method negative.
+     */
+    @Test
+    public void whenTreeIsBlankThanHasNextIsFalse() {
+        assertThat(this.tree.iterator().hasNext(), is(false));
     }
 }
