@@ -42,7 +42,7 @@ public class StringComparator {
         if (stringOne.length() == stringTwo.length()) {
             Set<Character> setOne = new HashSet<>();
             Set<Character> setTwo = new HashSet<>();
-            for (int i = 0; i < stringOne.length() - 1; i++) {
+            for (int i = 0; i < stringOne.length(); i++) {
                 setOne.add(stringOne.charAt(i));
                 setTwo.add(stringTwo.charAt(i));
             }

@@ -31,8 +31,8 @@ public class StringComparatorTest {
      */
     @Test
     public void whenTwoStringsWithSameLettersThenTrue() {
-        String one = new String("set");
-        String two = new String("est");
+        String one = new String("sset");
+        String two = new String("estt");
         StringComparator stringComparator = new StringComparator(one, two);
 
         assertThat(stringComparator.compare(), is(true));
