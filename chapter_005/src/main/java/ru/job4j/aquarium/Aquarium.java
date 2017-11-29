@@ -21,12 +21,12 @@ public class Aquarium {
     /**
      * Aquarium population.
      */
-    private Queue<Fish> population;
+    private final Queue<Fish> population;
 
     /**
      * Random generator.
      */
-    private Random random = new Random();
+    private final Random random = new Random();
 
     /**
      * Constructor.

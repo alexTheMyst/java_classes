@@ -16,23 +16,19 @@ public class BirthAction implements Action {
      * Creates string which represents birth action.
      *
      * @param aquarium population
-     * @return string which represents birth action
      */
     @Override
-    public String performAction(Aquarium aquarium) {
+    public void performAction(Aquarium aquarium) {
         Fish fish;
-        String result = "";
         FishPair randomFishPair = aquarium.getFishPair();
         Fish fishOne = randomFishPair.getFishOne();
         Fish fishTwo = randomFishPair.getFishTwo();
-        if (fishOne != fishTwo && fishOne.isMale() != fishTwo.isMale()) {
+        if (fishOne != fishTwo && fishOne.checkBorn(fishTwo)) {
             int randomInt = aquarium.getRandom().nextInt(100);
             int life = 100 + randomInt;
             boolean isMale = randomInt % 2 == 0;
             fish = new Fish(life, isMale);
             aquarium.add(fish);
-            result = String.format("Fish #%d was born.", fish.getId());
         }
-        return result;
     }
 }

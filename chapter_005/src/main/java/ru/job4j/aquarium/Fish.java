@@ -7,26 +7,26 @@ package ru.job4j.aquarium;
  * @version $id$
  * @since 21.11.17
  */
-public class Fish implements Comparable {
+public class Fish implements Comparable<Fish> {
     /**
      * Used to generate id for next fish.
      */
-    public static int idGen = 1;
+    private static int idGen = 1;
 
     /**
      * Id.
      */
-    private int id;
+    private final int id;
 
     /**
      * fish life period.
      */
-    private int lifePeriod;
+    private final int lifePeriod;
 
     /**
      * Fish gender.
      */
-    private boolean male;
+    private final boolean male;
 
     /**
      * Constructor.
@@ -36,40 +36,52 @@ public class Fish implements Comparable {
      */
     public Fish(int lifePeriod, boolean male) {
         this.id = idGen++;
+        System.out.println(String.format("Fish #%d was born.", this.id));
         this.lifePeriod = lifePeriod;
         this.male = male;
     }
 
     /**
-     * Life period getter.
+     * Checks that action can happen and print message.
      *
-     * @return life period
+     * @param fish some fish
+     * @return true if fish can meet or false otherwise
      */
-    public int getLifePeriod() {
-        return lifePeriod;
+    public boolean checkMeet(Fish fish) {
+        boolean result = this.male == fish.male;
+        if (result) {
+            System.out.println(String.format("Fish #%d meet fish #%d", this.id, fish.id));
+        }
+        return result;
     }
 
     /**
-     * Id getter.
+     * Cgecks that action can happend
      *
-     * @return
+     * @param fish some fish
+     * @return true if fish can born the other fish or false otherwise
      */
-    public int getId() {
-        return id;
+    public boolean checkBorn(Fish fish) {
+        return this.male != fish.male;
     }
 
     /**
-     * Gender getter.
+     * Checks is the fish should die.
      *
-     * @return gender as a boolean
+     * @param timeCounter time period since aquarium started
+     * @return true if it is time to die or false otherwise
      */
-    public boolean isMale() {
-        return male;
+    public boolean checkDieTime(int timeCounter) {
+        boolean result = timeCounter > this.lifePeriod;
+        if (result) {
+            System.out.println(String.format("Fish #%d died.", this.id));
+        }
+        return result;
     }
 
     @Override
-    public int compareTo(Object o) {
-        return this.lifePeriod - ((Fish) o).getLifePeriod();
+    public int compareTo(Fish fish) {
+        return this.lifePeriod - fish.lifePeriod;
     }
 
     @Override
@@ -83,10 +95,7 @@ public class Fish implements Comparable {
 
         Fish fish = (Fish) o;
 
-        if (lifePeriod != fish.lifePeriod) {
-            return false;
-        }
-        return male == fish.male;
+        return lifePeriod == fish.lifePeriod && male == fish.male;
     }
 
     @Override

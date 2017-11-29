@@ -17,12 +17,11 @@ public class ShowPopulationAction implements Action {
      * Creates show population string.
      *
      * @param aquarium population
-     * @return string with current population
      */
     @Override
-    public String performAction(Aquarium aquarium) {
-        return String.format("Aquarium population at %s is: %d",
+    public void performAction(Aquarium aquarium) {
+        System.out.println(String.format("Aquarium population at %s is: %d",
                 LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.mm.yyyy H:m:s")),
-                aquarium.getPopulation().size());
+                aquarium.getPopulation().size()));
     }
 }

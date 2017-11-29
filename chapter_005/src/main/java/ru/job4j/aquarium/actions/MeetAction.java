@@ -16,20 +16,15 @@ public class MeetAction implements Action {
      * Creates string which represents meet action.
      *
      * @param aquarium aquarium
-     * @return string which represents meet action
      */
     @Override
-    public String performAction(Aquarium aquarium) {
-        String result;
+    public void performAction(Aquarium aquarium) {
         FishPair pair = aquarium.getFishPair();
         Fish firstFish = pair.getFishOne();
         Fish secondFish = pair.getFishTwo();
 
-        if (firstFish != secondFish && firstFish.isMale() == secondFish.isMale()) {
-            result = String.format("Fish #%d meet fish #%d", firstFish.getId(), secondFish.getId());
-        } else {
-            result = "";
+        if (firstFish != secondFish) {
+            firstFish.checkMeet(secondFish);
         }
-        return result;
     }
 }

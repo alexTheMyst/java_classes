@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.aquarium.actions.*;
 
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -41,20 +40,6 @@ public class AquariumTest {
         assertThat(this.aquarium.getPopulation().size(), is(1));
     }
 
-    /**
-     * Tests meet action.
-     */
-    @Test
-    public void whenAllFishAreMaleThenMeet() {
-        for (int i = 0; i < 5; i++) {
-            Fish fish = new Fish(1, true);
-            aquarium.add(fish);
-        }
-        Action action = new MeetAction();
-        String result = action.performAction(this.aquarium);
-
-        assertThat(result, is(containsString("meet")));
-    }
 
     /**
      * Tests meet action negative scenario.
@@ -63,11 +48,8 @@ public class AquariumTest {
     public void whenTwoFichesWithDifferentSexThenTheyDontMeet() {
         Fish fish = new Fish(1, true);
         Fish otherFish = new Fish(1, false);
-        this.aquarium.add(fish);
-        this.aquarium.add(otherFish);
-        Action action = new MeetAction();
 
-        assertThat(action.performAction(this.aquarium), is(containsString("")));
+        assertThat(fish.checkMeet(otherFish), is(false));
     }
 
     /**
@@ -79,11 +61,11 @@ public class AquariumTest {
         Fish otherFish = new Fish(1, false);
         this.aquarium.add(fish);
         this.aquarium.add(otherFish);
+        int size = this.aquarium.getPopulation().size();
         Action action = new BirthAction();
-        String result = action.performAction(this.aquarium);
+        action.performAction(this.aquarium);
 
-        System.out.println(result);
-        assertThat(result, is(containsString("born")));
+        assertThat(this.aquarium.getPopulation().size(), is(size + 1));
     }
 
     /**
@@ -95,9 +77,7 @@ public class AquariumTest {
 
         this.aquarium.add(fish);
         Action action = new ShowPopulationAction();
-        String result = action.performAction(this.aquarium);
-
-        assertThat(result, is(containsString("1")));
+        action.performAction(this.aquarium);
     }
 
     /**
@@ -109,10 +89,9 @@ public class AquariumTest {
 
         this.aquarium.add(fish);
         Action action = new LifeCycleAction();
-        String result = action.performAction(this.aquarium);
+        action.performAction(this.aquarium);
 
-        System.out.println(result);
-        assertThat(result, is(containsString("died")));
+        assertThat(this.aquarium.getPopulation().size(), is(0));
     }
 
     /**
@@ -132,8 +111,7 @@ public class AquariumTest {
 
         while (this.aquarium.getPopulation().size() > 1) {
             for (Action action : actions) {
-                String res = action.performAction(this.aquarium);
-                System.out.println(res);
+                action.performAction(this.aquarium);
             }
         }
         System.out.println("Sorry all fish are died.");

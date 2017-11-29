@@ -17,18 +17,13 @@ public class LifeCycleAction implements Action {
      * Checks population for outdated fish.
      *
      * @param aquarium aquarium
-     * @return a string
      */
     @Override
-    public String performAction(Aquarium aquarium) {
+    public void performAction(Aquarium aquarium) {
         Queue<Fish> population = aquarium.getPopulation();
         Aquarium.timeCounter++;
-        Fish fish;
-        String result = "";
-        while (population.size() > 0 && population.peek().getLifePeriod() < Aquarium.timeCounter) {
-            fish = population.remove();
-            result += String.format("Fish #%d died.\n", fish.getId());
+        while (population.size() > 0 && population.peek().checkDieTime(Aquarium.timeCounter)) {
+            population.remove();
         }
-        return result;
     }
 }
