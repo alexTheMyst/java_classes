@@ -13,7 +13,7 @@ public class Order {
     /**
      * Default book name.
      */
-    final static String DEFAULT_BOOK_NAME = "void";
+    private final static String DEFAULT_BOOK_NAME = "void";
 
     /**
      * Default id.

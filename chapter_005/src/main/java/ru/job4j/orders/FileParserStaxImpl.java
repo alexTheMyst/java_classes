@@ -17,6 +17,7 @@ import java.io.IOException;
  */
 public class FileParserStaxImpl implements FileParser {
 
+    public static final String SELL = "SELL";
     /**
      * Path to file.
      */
@@ -40,7 +41,7 @@ public class FileParserStaxImpl implements FileParser {
     /**
      * Constructor.
      *
-     * @param filePath path to file
+     * @param filePath       path to file
      * @param orderBookStore book store
      */
     public FileParserStaxImpl(String filePath, OrderBookStore orderBookStore) {
@@ -82,8 +83,8 @@ public class FileParserStaxImpl implements FileParser {
         if (this.streamReader.getLocalName().equals("AddOrder")) {
             order = composeOrder();
         } else {
-            order = new Order(this.streamReader.getAttributeValue(0),
-                    Integer.parseInt(this.streamReader.getAttributeValue(1)));
+            order = new Order(this.streamReader.getAttributeValue("", "book"),
+                    Integer.parseInt(this.streamReader.getAttributeValue("", "orderId")));
         }
         return order;
     }
@@ -96,13 +97,13 @@ public class FileParserStaxImpl implements FileParser {
     private Order composeOrder() {
         Order order = null;
         if (!this.streamReader.isEndElement()) {
-            order = new Order(this.streamReader.getAttributeValue(0),
-                    Integer.parseInt(this.streamReader.getAttributeValue(4)));
-            if (this.streamReader.getAttributeValue(1).equals("SELL")) {
+            order = new Order(this.streamReader.getAttributeValue("", "book"),
+                    Integer.parseInt(this.streamReader.getAttributeValue("", "orderId")));
+            if (this.streamReader.getAttributeValue("", "operation").equals(SELL)) {
                 order.setBuyOperation(false);
             }
-            order.setPrice(this.streamReader.getAttributeValue(2).trim());
-            order.setVolume(Integer.parseInt(this.streamReader.getAttributeValue(3)));
+            order.setPrice(this.streamReader.getAttributeValue("", "price").trim());
+            order.setVolume(Integer.parseInt(this.streamReader.getAttributeValue("", "volume")));
         }
         return order;
     }
