@@ -100,4 +100,34 @@ public class SimpleFileReaderTest {
         spaceCountThread.join();
         wordsCountThread.join();
     }
+
+    /**
+     * Runs Runs both word and space counters in parallel threads. Shows banner before and after.
+     *
+     * @throws InterruptedException
+     */
+    @Test
+    public void runWithBanners() throws InterruptedException {
+        List<String> strings = this.simpleFileReader.readFile();
+        SpacesCounter spacesCounter = new SpacesCounter(strings);
+        WordsCounter wordsCounter = new WordsCounter(strings);
+
+        Thread spaceCountThread = new Thread(spacesCounter);
+        Thread wordsCountThread = new Thread(wordsCounter);
+        Banner startBanner = new Banner("Program started.");
+        Banner finishBanner = new Banner("Program finished.");
+        Thread startBannerThread = new Thread(startBanner);
+        Thread finishBannerThread = new Thread(finishBanner);
+
+        startBannerThread.start();
+        startBannerThread.join();
+
+        spaceCountThread.start();
+        wordsCountThread.start();
+        spaceCountThread.join();
+        wordsCountThread.join();
+
+        finishBannerThread.start();
+        finishBannerThread.join();
+    }
 }
