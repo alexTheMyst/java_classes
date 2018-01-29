@@ -100,7 +100,9 @@ public class SimpleArrayList<E> implements Iterable<E> {
          */
         @Override
         public boolean hasNext() {
-            return this.lastReturnedElementIndex < lastUsedElementIndex;
+            synchronized (SimpleArrayList.this) {
+                return this.lastReturnedElementIndex < lastUsedElementIndex;
+            }
         }
 
         /**
@@ -111,7 +113,9 @@ public class SimpleArrayList<E> implements Iterable<E> {
         @SuppressWarnings("unchecked")
         @Override
         public E next() {
-            return (E) array[lastReturnedElementIndex++];
+            synchronized (SimpleArrayList.this) {
+                return (E) array[lastReturnedElementIndex++];
+            }
         }
     }
 }
