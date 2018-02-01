@@ -46,6 +46,11 @@ public class ParallelSearch {
     private final List<String> result;
 
     /**
+     * Worker threads store.
+     */
+    private final List<Thread> threads;
+
+    /**
      * Constructor.
      *
      * @param root       directory here search started
@@ -58,6 +63,7 @@ public class ParallelSearch {
         this.extensions = extensions;
         this.filesToSearch = new ArrayList<>();
         this.result = new ArrayList<>();
+        this.threads = new ArrayList<>();
     }
 
 
@@ -85,9 +91,28 @@ public class ParallelSearch {
                 TextSearcher textSearcher = new TextSearcher(path, this.text, this.result);
                 Thread thread = new Thread(textSearcher);
                 thread.start();
-                thread.join();
+                this.threads.add(thread);
             }
         }
+        while (!workFinished()) {
+            Thread.sleep(10);
+        }
+    }
+
+    /**
+     * Checks that all threads are finished.
+     *
+     * @return true if all threads are done or false otherwise
+     */
+    private boolean workFinished() {
+        boolean result = true;
+        for (Thread thread : threads) {
+            if (thread.isAlive()) {
+                result = false;
+                break;
+            }
+        }
+        return result;
     }
 
     /**
