@@ -1,6 +1,7 @@
 package ru.job4j.mt.jcip;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class ParallelSearchTest {
     }
 
     @Test
+    @Ignore
     public void startSearch() throws IOException, InterruptedException {
 
         this.parallelSearch.getResult().stream().forEach(System.out::println);

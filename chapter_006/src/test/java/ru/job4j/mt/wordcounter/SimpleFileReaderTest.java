@@ -1,6 +1,7 @@
 package ru.job4j.mt.wordcounter;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.LinkedList;
@@ -88,6 +89,7 @@ public class SimpleFileReaderTest {
      * @throws InterruptedException if thread interrupted
      */
     @Test
+    @Ignore
     public void runTwoThreads() throws InterruptedException {
         List<String> strings = this.simpleFileReader.readFile();
         SpacesCounter spacesCounter = new SpacesCounter(strings);
@@ -107,6 +109,7 @@ public class SimpleFileReaderTest {
      * @throws InterruptedException
      */
     @Test
+    @Ignore
     public void runWithBanners() throws InterruptedException {
         List<String> strings = this.simpleFileReader.readFile();
         SpacesCounter spacesCounter = new SpacesCounter(strings);

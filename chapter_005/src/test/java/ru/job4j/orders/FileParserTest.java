@@ -1,5 +1,6 @@
 package ru.job4j.orders;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class FileParserTest {
      * @throws IOException
      */
     @Test
+    @Ignore
     public void testBuffReader() throws IOException {
         OrderBookStore orderBookStore = new OrderBookStore();
         FileParser parser = new FileParserBufferedReaderImpl(this.filePath, orderBookStore);
@@ -40,6 +42,7 @@ public class FileParserTest {
      * Measures time to full file processing using Stax.
      */
     @Test
+    @Ignore
     public void testStax() {
         OrderBookStore orderBookStore = new OrderBookStore();
         FileParser parser = new FileParserStaxImpl(this.filePath, orderBookStore);

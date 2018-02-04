@@ -1,6 +1,7 @@
 package ru.job4j.mt.wordcounter;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class CountCharInterruptibleTest {
      * @throws InterruptedException
      */
     @Test
+    @Ignore
     public void whenCounterRunWithNonZeroListThenPrints() throws InterruptedException {
         Thread counterThread = new Thread(new CountChar(this.strings));
         counterThread.start();
@@ -50,6 +52,7 @@ public class CountCharInterruptibleTest {
      * @throws InterruptedException
      */
     @Test
+    @Ignore
     public void whenCounterWithTimerThenException() throws InterruptedException {
         Thread counterThread = new Thread(new CountChar(this.strings));
         Thread timerThread = new Thread(new Time(counterThread, 50));
