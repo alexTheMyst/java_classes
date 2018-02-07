@@ -24,11 +24,6 @@ class SimpleBlockingQueue {
      */
     private final int maxQueueSize;
     /**
-     * Max queue size.
-     */
-    @GuardedBy("this")
-    private int currentQueueSize;
-    /**
      * Elements storage.
      */
     @GuardedBy("this")
@@ -48,7 +43,6 @@ class SimpleBlockingQueue {
      */
     private SimpleBlockingQueue(int size) {
         this.maxQueueSize = size;
-        this.currentQueueSize = 0;
         this.queue = new LinkedList<>();
     }
 
@@ -63,15 +57,12 @@ class SimpleBlockingQueue {
         synchronized (this) {
             System.out.println("Queue message: addElement started");
             boolean result;
-            while (this.currentQueueSize >= this.maxQueueSize) {
+            while (this.queue.size() >= this.maxQueueSize) {
                 System.out.println("Queue message: reached max queue size");
                 this.wait();
             }
-            this.currentQueueSize++;
             result = this.queue.add(element);
-            if (this.currentQueueSize > 0) {
-                this.notify();
-            }
+            this.notifyAll();
             return result;
         }
     }
@@ -87,15 +78,12 @@ class SimpleBlockingQueue {
             System.out.println("Queue message: pop started");
 
             String result;
-            while (this.currentQueueSize == 0) {
+            while (this.queue.size() == 0) {
                 System.out.println("Queue message: queue is empty nothing to consume");
                 this.wait();
             }
-            this.currentQueueSize--;
             result = this.queue.peek();
-            if (this.currentQueueSize < this.maxQueueSize) {
-                this.notify();
-            }
+            this.notifyAll();
             return result;
         }
     }
@@ -107,7 +95,7 @@ class SimpleBlockingQueue {
      */
     public int getCurrentQueueSize() {
         synchronized (this) {
-            return this.currentQueueSize;
+            return this.queue.size();
         }
     }
 }
