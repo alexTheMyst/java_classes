@@ -14,7 +14,7 @@ public class SimpleBlockingQueueTest {
     /**
      * Simple blocking queue instance.
      */
-    private SimpleBlockingQueue blockingQueue;
+    private SimpleBlockingQueue<String> blockingQueue;
     /**
      * Producer.
      */
