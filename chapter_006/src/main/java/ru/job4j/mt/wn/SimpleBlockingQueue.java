@@ -55,10 +55,8 @@ class SimpleBlockingQueue {
      */
     public boolean addElement(String element) throws InterruptedException {
         synchronized (this) {
-            System.out.println("Queue message: addElement started");
             boolean result;
             while (this.queue.size() >= this.maxQueueSize) {
-                System.out.println("Queue message: reached max queue size");
                 this.wait();
             }
             result = this.queue.add(element);
@@ -75,14 +73,12 @@ class SimpleBlockingQueue {
      */
     public String pop() throws InterruptedException {
         synchronized (this) {
-            System.out.println("Queue message: pop started");
 
             String result;
             while (this.queue.size() == 0) {
-                System.out.println("Queue message: queue is empty nothing to consume");
                 this.wait();
             }
-            result = this.queue.peek();
+            result = this.queue.poll();
             this.notifyAll();
             return result;
         }
