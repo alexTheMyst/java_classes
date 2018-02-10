@@ -14,7 +14,7 @@ import java.util.Queue;
  * @since 05.02.2018
  */
 @ThreadSafe
-class SimpleBlockingQueue {
+class SimpleBlockingQueue<E> {
     /**
      * Default max queue size.
      */
@@ -27,7 +27,7 @@ class SimpleBlockingQueue {
      * Elements storage.
      */
     @GuardedBy("this")
-    private final Queue<String> queue;
+    private final Queue<E> queue;
 
     /**
      * Default constructor.
@@ -41,7 +41,7 @@ class SimpleBlockingQueue {
      *
      * @param size size of queue
      */
-    private SimpleBlockingQueue(int size) {
+    public SimpleBlockingQueue(int size) {
         this.maxQueueSize = size;
         this.queue = new LinkedList<>();
     }
@@ -53,7 +53,7 @@ class SimpleBlockingQueue {
      * @return true if operation successful
      * @throws InterruptedException exception
      */
-    public boolean addElement(String element) throws InterruptedException {
+    public boolean addElement(E element) throws InterruptedException {
         synchronized (this) {
             System.out.println("Queue message: addElement started");
             boolean result;
@@ -73,16 +73,16 @@ class SimpleBlockingQueue {
      * @return element
      * @throws InterruptedException exception
      */
-    public String pop() throws InterruptedException {
+    public E pop() throws InterruptedException {
         synchronized (this) {
             System.out.println("Queue message: pop started");
 
-            String result;
+            E result;
             while (this.queue.size() == 0) {
                 System.out.println("Queue message: queue is empty nothing to consume");
                 this.wait();
             }
-            result = this.queue.peek();
+            result = this.queue.poll();
             this.notifyAll();
             return result;
         }
