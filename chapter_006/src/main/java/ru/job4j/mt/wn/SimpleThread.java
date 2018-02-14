@@ -27,11 +27,13 @@ public class SimpleThread extends Thread {
      */
     @Override
     public void run() {
-        try {
-            Work work = this.blockingQueue.pop();
-            work.run();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while (Thread.currentThread().isAlive()) {
+            try {
+                Work work = this.blockingQueue.pop();
+                work.run();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
