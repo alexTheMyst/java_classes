@@ -1,5 +1,6 @@
 package ru.job4j.mt.wn;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,6 +26,12 @@ public class SimpleThreadPoolTest {
     @Before
     public void setUp() {
         this.simpleThreadPool = new SimpleThreadPool();
+        this.simpleThreadPool.start();
+    }
+
+    @After
+    public void tearDown() {
+        this.simpleThreadPool.stop();
     }
 
     /**
@@ -34,7 +41,7 @@ public class SimpleThreadPoolTest {
      */
     @Test
     public void name() throws InterruptedException {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             System.out.println("I = " + i);
             Work work = new Work(i);
             simpleThreadPool.add(work);

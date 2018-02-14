@@ -1,8 +1,5 @@
 package ru.job4j.mt.wn;
 
-import net.jcip.annotations.GuardedBy;
-import net.jcip.annotations.ThreadSafe;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +10,10 @@ import java.util.List;
  * @version $id$
  * @since 07.02.2018
  */
-@ThreadSafe
 public class SimpleThreadPool {
     /**
      * Queue for the work.
      */
-    @GuardedBy("this")
     private final SimpleBlockingQueue<Work> blockingQueue;
     /**
      * Threads container.
@@ -37,7 +32,6 @@ public class SimpleThreadPool {
         this.cpuCount = Runtime.getRuntime().availableProcessors();
         this.blockingQueue = new SimpleBlockingQueue<>();
         this.threads = new ArrayList<>(this.cpuCount);
-        initThreads();
     }
 
     /**
@@ -47,21 +41,35 @@ public class SimpleThreadPool {
      * @throws InterruptedException exception
      */
     public synchronized void add(Work work) throws InterruptedException {
-        blockingQueue.addElement(work);
+        this.blockingQueue.addElement(work);
     }
 
     /**
-     * Initialize thread pool.
+     * Starts thread pool.
      */
-    private void initThreads() {
-        System.out.println("Thread pool init method started");
-        for (int i = 0; i < this.cpuCount; i++) {
-            SimpleThread simpleThread;
-            synchronized (this) {
+    public synchronized void start() {
+        if (this.threads.size() != this.cpuCount) {
+            System.out.println("Thread pool start method started");
+            for (int i = 0; i < this.cpuCount; i++) {
+                SimpleThread simpleThread;
                 simpleThread = new SimpleThread(this.blockingQueue);
+                simpleThread.start();
+                this.threads.add(simpleThread);
             }
-            simpleThread.start();
-            this.threads.add(simpleThread);
+        }
+    }
+
+    /**
+     * Stops thread pool.
+     */
+    public synchronized void stop() {
+        System.out.println("Thread pool stop method started");
+        for (SimpleThread simpleThread : this.threads) {
+            try {
+                simpleThread.interrupt();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

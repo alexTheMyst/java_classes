@@ -1,7 +1,7 @@
 package ru.job4j.mt.wn;
 
 /**
- * Ttread implementation for the SimpleThreadPool.
+ * Thread implementation for the SimpleThreadPool.
  *
  * @author Alexey Aleshin
  * @version $id$
@@ -27,11 +27,13 @@ public class SimpleThread extends Thread {
      */
     @Override
     public void run() {
-        try {
-            Work work = this.blockingQueue.pop();
-            work.run();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while (Thread.currentThread().isAlive()) {
+            try {
+                Work work = this.blockingQueue.pop();
+                work.run();
+            } catch (InterruptedException e) {
+                System.out.println("Thread " + currentThread().getName() + " has been interrupted.");
+            }
         }
     }
 }
