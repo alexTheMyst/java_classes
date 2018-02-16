@@ -27,7 +27,7 @@ public class SimpleThread extends Thread {
      */
     @Override
     public void run() {
-        while (Thread.currentThread().isAlive()) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 Work work = this.blockingQueue.pop();
                 work.run();

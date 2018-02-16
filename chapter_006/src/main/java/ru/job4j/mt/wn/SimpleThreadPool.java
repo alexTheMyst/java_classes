@@ -40,7 +40,7 @@ public class SimpleThreadPool {
      * @param work work implementation.
      * @throws InterruptedException exception
      */
-    public synchronized void add(Work work) throws InterruptedException {
+    public void add(Work work) throws InterruptedException {
         this.blockingQueue.addElement(work);
     }
 
