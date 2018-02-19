@@ -66,7 +66,7 @@ public class SimpleThreadPool {
         System.out.println("Thread pool stop method started");
         for (SimpleThread simpleThread : this.threads) {
             try {
-                simpleThread.interrupt();
+                simpleThread.setCanceled();
             } catch (Exception e) {
                 e.printStackTrace();
             }
