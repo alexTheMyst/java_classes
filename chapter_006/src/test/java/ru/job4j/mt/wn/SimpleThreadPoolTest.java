@@ -14,7 +14,6 @@ import static org.junit.Assert.assertThat;
  * @since 07.02.2018
  */
 public class SimpleThreadPoolTest {
-
     /**
      * Thread pool.
      */

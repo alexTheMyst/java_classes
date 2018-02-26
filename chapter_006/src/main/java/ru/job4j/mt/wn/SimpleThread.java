@@ -12,10 +12,6 @@ public class SimpleThread extends Thread {
      * Queue for the work.
      */
     private final SimpleBlockingQueue<Work> blockingQueue;
-    /**
-     * Flag represents threads state.
-     */
-    private volatile boolean canceled;
 
     /**
      * Constructor.
@@ -31,24 +27,14 @@ public class SimpleThread extends Thread {
      */
     @Override
     public void run() {
-        while (!canceled) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 Work work = this.blockingQueue.pop();
                 work.run();
             } catch (InterruptedException ie) {
-                this.canceled = true;
-                System.err.println("Thread has interrupted");
-                ie.printStackTrace();
+                System.out.println("Thread " + currentThread().getName() + " has been interrupted.");
+                return;
             }
-
         }
-    }
-
-    /**
-     * Sets cancelled flag.
-     */
-    public void setCanceled() {
-        System.out.println("Thread has stopped");
-        this.canceled = true;
     }
 }
