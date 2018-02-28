@@ -62,6 +62,34 @@ public class SimpleLockImplementationTest {
     }
 
     /**
+     * Lock with one object and other can't unlock.
+     *
+     * @throws InterruptedException interrupted exception
+     */
+    @Test
+    public void whenOneLockThenOtherCantUnlock() throws InterruptedException {
+        Object object = new Object();
+        this.simpleLockImplementation.lock(object);
+        this.simpleLockImplementation.unlock(new Object());
+
+        assertThat(this.simpleLockImplementation.isLocked(), is(true));
+    }
+
+    /**
+     * Lock with one object and unlock with the same object.
+     *
+     * @throws InterruptedException interrupted exception
+     */
+    @Test
+    public void whenOneLockAndUnlockThenIsLockedFalse() throws InterruptedException {
+        Object object = new Object();
+        this.simpleLockImplementation.lock(object);
+        this.simpleLockImplementation.unlock(object);
+
+        assertThat(this.simpleLockImplementation.isLocked(), is(false));
+    }
+
+    /**
      * Simple Runnable implementation for tests purposes.
      */
     static class TestLockRunnable implements Runnable {

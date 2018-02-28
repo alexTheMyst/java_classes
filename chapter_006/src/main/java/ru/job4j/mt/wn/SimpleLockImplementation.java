@@ -28,6 +28,7 @@ public class SimpleLockImplementation {
      */
     public SimpleLockImplementation() {
         this.isLocked = false;
+        this.locker = this;
     }
 
     /**
@@ -51,9 +52,11 @@ public class SimpleLockImplementation {
     public void unlock(Object locker) {
         synchronized (this) {
             if (this.locker.equals(locker)) {
-                this.locker = null;
+                this.locker = this;
                 this.isLocked = false;
                 notifyAll();
+            } else {
+                System.err.println("You are not the lock holder.");
             }
         }
     }
