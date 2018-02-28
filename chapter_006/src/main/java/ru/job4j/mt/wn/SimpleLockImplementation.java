@@ -19,6 +19,11 @@ public class SimpleLockImplementation {
     private boolean isLocked;
 
     /**
+     * Stores link to lock holder;
+     */
+    private Object locker;
+
+    /**
      * Default constructor.
      */
     public SimpleLockImplementation() {
@@ -30,11 +35,12 @@ public class SimpleLockImplementation {
      *
      * @throws InterruptedException exception
      */
-    public void lock() throws InterruptedException {
+    public void lock(Object locker) throws InterruptedException {
         synchronized (this) {
             while (this.isLocked) {
                 this.wait();
             }
+            this.locker = locker;
             this.isLocked = true;
         }
     }
@@ -42,10 +48,13 @@ public class SimpleLockImplementation {
     /**
      * Unlocks current lock.
      */
-    public void unlock() {
+    public void unlock(Object locker) {
         synchronized (this) {
-            this.isLocked = false;
-            notifyAll();
+            if (this.locker.equals(locker)) {
+                this.locker = null;
+                this.isLocked = false;
+                notifyAll();
+            }
         }
     }
 

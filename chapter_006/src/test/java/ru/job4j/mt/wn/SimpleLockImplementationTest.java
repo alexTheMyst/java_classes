@@ -42,7 +42,7 @@ public class SimpleLockImplementationTest {
      */
     @Test
     public void whenLockThenIsLocked() throws InterruptedException {
-        this.simpleLockImplementation.lock();
+        this.simpleLockImplementation.lock(this);
 
         assertThat(this.simpleLockImplementation.isLocked(), is(true));
     }
@@ -85,14 +85,14 @@ public class SimpleLockImplementationTest {
         @Override
         public void run() {
             try {
-                this.simpleLockImplementation.lock();
+                this.simpleLockImplementation.lock(this);
                 System.out.println("Thread  "
                         + Thread.currentThread().getName()
                         + " lock status is "
                         + this.simpleLockImplementation.isLocked()
                 );
                 Thread.sleep(1000);
-                this.simpleLockImplementation.unlock();
+                this.simpleLockImplementation.unlock(this);
                 System.out.println("Thread  "
                         + Thread.currentThread().getName()
                         + " released lock."
