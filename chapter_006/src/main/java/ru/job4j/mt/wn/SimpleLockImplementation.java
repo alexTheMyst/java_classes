@@ -36,12 +36,12 @@ public class SimpleLockImplementation {
      *
      * @throws InterruptedException exception
      */
-    public void lock(Object locker) throws InterruptedException {
+    public void lock() throws InterruptedException {
         synchronized (this) {
             while (this.isLocked) {
                 this.wait();
             }
-            this.locker = locker;
+            this.locker = Thread.currentThread();
             this.isLocked = true;
         }
     }
@@ -49,9 +49,9 @@ public class SimpleLockImplementation {
     /**
      * Unlocks current lock.
      */
-    public void unlock(Object locker) {
+    public void unlock() {
         synchronized (this) {
-            if (this.locker.equals(locker)) {
+            if (this.locker.equals(Thread.currentThread())) {
                 this.locker = this;
                 this.isLocked = false;
                 notifyAll();

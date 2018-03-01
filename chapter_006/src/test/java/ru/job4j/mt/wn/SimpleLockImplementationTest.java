@@ -42,7 +42,7 @@ public class SimpleLockImplementationTest {
      */
     @Test
     public void whenLockThenIsLocked() throws InterruptedException {
-        this.simpleLockImplementation.lock(this);
+        this.simpleLockImplementation.lock();
 
         assertThat(this.simpleLockImplementation.isLocked(), is(true));
     }
@@ -68,9 +68,8 @@ public class SimpleLockImplementationTest {
      */
     @Test
     public void whenOneLockThenOtherCantUnlock() throws InterruptedException {
-        Object object = new Object();
-        this.simpleLockImplementation.lock(object);
-        this.simpleLockImplementation.unlock(new Object());
+        this.simpleLockImplementation.lock();
+        new Thread(new TestUnlockRunnable(this.simpleLockImplementation)).start();
 
         assertThat(this.simpleLockImplementation.isLocked(), is(true));
     }
@@ -82,9 +81,8 @@ public class SimpleLockImplementationTest {
      */
     @Test
     public void whenOneLockAndUnlockThenIsLockedFalse() throws InterruptedException {
-        Object object = new Object();
-        this.simpleLockImplementation.lock(object);
-        this.simpleLockImplementation.unlock(object);
+        this.simpleLockImplementation.lock();
+        this.simpleLockImplementation.unlock();
 
         assertThat(this.simpleLockImplementation.isLocked(), is(false));
     }
@@ -113,14 +111,14 @@ public class SimpleLockImplementationTest {
         @Override
         public void run() {
             try {
-                this.simpleLockImplementation.lock(this);
+                this.simpleLockImplementation.lock();
                 System.out.println("Thread  "
                         + Thread.currentThread().getName()
                         + " lock status is "
                         + this.simpleLockImplementation.isLocked()
                 );
                 Thread.sleep(1000);
-                this.simpleLockImplementation.unlock(this);
+                this.simpleLockImplementation.unlock();
                 System.out.println("Thread  "
                         + Thread.currentThread().getName()
                         + " released lock."
@@ -129,6 +127,33 @@ public class SimpleLockImplementationTest {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * Runnable implementation for unlocking test.
+     */
+    static class TestUnlockRunnable implements Runnable {
+        /**
+         * Simple lock instance.
+         */
+        private SimpleLockImplementation simpleLockImplementation;
+
+        /**
+         * Constructor.
+         *
+         * @param simpleLockImplementation lock
+         */
+        public TestUnlockRunnable(SimpleLockImplementation simpleLockImplementation) {
+            this.simpleLockImplementation = simpleLockImplementation;
+        }
+
+        /**
+         * Does some work.
+         */
+        @Override
+        public void run() {
+            this.simpleLockImplementation.unlock();
         }
     }
 }
