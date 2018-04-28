@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @version $id$
  * @since 14.04.2018
  */
-public class NumberAggregator {
+public class NumberAggregator implements Aggregator {
     /**
      * Lock.
      */
@@ -58,9 +58,6 @@ public class NumberAggregator {
         if (this.repCount.get() == 0 && this.previousValue != number && this.reentrantLock.tryLock()) {
             appendNumber(number);
         }
-
-
-
     }
 
     /**

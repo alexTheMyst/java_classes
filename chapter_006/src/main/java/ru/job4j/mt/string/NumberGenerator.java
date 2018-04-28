@@ -17,9 +17,9 @@ public class NumberGenerator implements Runnable {
      */
     private int delay;
     /**
-     * StringGenetator to a accept generated numbers.
+     * StringGenerator to a accept generated numbers.
      */
-    private NumberAggregator numberAggregator;
+    private Aggregator aggregator;
     /**
      * Stopped flag.
      */
@@ -30,12 +30,12 @@ public class NumberGenerator implements Runnable {
      *
      * @param numberToGenerate  some int
      * @param delay             delay in ms
-     * @param numberAggregator  StringGenerator instance
+     * @param aggregator  StringGenerator instance
      */
-    public NumberGenerator(int numberToGenerate, int delay, NumberAggregator numberAggregator) {
+    public NumberGenerator(int numberToGenerate, int delay, Aggregator aggregator) {
         this.numberToGenerate = numberToGenerate;
         this.delay = delay;
-        this.numberAggregator = numberAggregator;
+        this.aggregator = aggregator;
     }
 
     /**
@@ -44,7 +44,7 @@ public class NumberGenerator implements Runnable {
     @Override
     public void run() {
         while (!stopped) {
-            this.numberAggregator.addInt(this.numberToGenerate);
+            this.aggregator.addInt(this.numberToGenerate);
             try {
                 Thread.sleep(this.delay);
             } catch (InterruptedException e) {
