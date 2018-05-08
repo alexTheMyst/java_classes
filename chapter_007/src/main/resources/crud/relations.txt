@@ -1,0 +1,7 @@
+user - role = many-to-one
+role - rule = many-to-many
+user - item = one-to-many
+item - comment = one-to-many
+item - attach = one-to-many
+state - item = one-to-many
+category - item = one-to-many
