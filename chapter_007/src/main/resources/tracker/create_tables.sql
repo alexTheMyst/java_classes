@@ -1,0 +1,1 @@
+create table items (id INTEGER PRIMARY KEY, name TEXT)
