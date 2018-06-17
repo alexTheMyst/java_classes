@@ -75,14 +75,27 @@ public class Item {
         this.id = id;
     }
 
+    /**
+     * Overridden toString.
+     *
+     * @return Item as a string
+     */
     @Override
     public String toString() {
-        return "Item{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", creationDate=" + creationDate +
-                ", comments=" + Arrays.toString(comments) +
-                '}';
+        return "Item{"
+                + "id='"
+                + id
+                + '\''
+                + ", name='"
+                + name
+                + '\''
+                + ", description='"
+                + description
+                + '\''
+                + ", creationDate="
+                + creationDate
+                + ", comments="
+                + Arrays.toString(comments)
+                + '}';
     }
 }

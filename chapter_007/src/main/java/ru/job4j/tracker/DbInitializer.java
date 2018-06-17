@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +14,10 @@ import java.sql.SQLException;
  * @version 05.06.2018
  */
 public class DbInitializer {
+    /**
+     * Logger instance.
+     */
+    private final static Logger LOG = Logger.getLogger(DbInitializer.class);
     /**
      * Check table existence statement.
      */
@@ -55,7 +61,7 @@ public class DbInitializer {
     private void createTables() throws SQLException {
         for (String statement : this.settingsReader.getSqlStatements()) {
             try (PreparedStatement preparedStatement = this.connection.prepareStatement(statement)) {
-                System.out.println("Create " + statement);
+                LOG.info("Create " + statement);
                 preparedStatement.executeUpdate();
             }
         }
@@ -69,12 +75,13 @@ public class DbInitializer {
      */
     private boolean isTableExists() throws SQLException {
         boolean result = false;
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement(CHECK_TABLE_QUERY);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-            if (resultSet != null && resultSet.getInt(1) == 1) {
-                result = true;
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(CHECK_TABLE_QUERY)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet != null && resultSet.getInt(1) == 1) {
+                    result = true;
+                }
+                return result;
             }
-            return result;
         }
     }
 }

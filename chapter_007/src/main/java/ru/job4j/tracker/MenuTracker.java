@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 /**
  * Menu for the tracker.
+ *
  * @author Alexey Aleshin
  * @version $id$
  * @since 09.04.17
@@ -136,9 +137,10 @@ class ShowAllItems extends BaseAction {
     public void execute(Input input, Tracker tracker) {
         Item[] items = tracker.findAll();
         if (items != null && items.length > 0) {
-            System.out.printf("| %20s\t| %40s\t|\n", "Item Id", "Item Name");
+            System.out.println(String.format("| %20s\t| %40s\t|\n", "Item Id", "Item Name"));
             for (Item item : items) {
-                System.out.printf("| %20s\t| %40s\t|\n", item.getId(), item.getName());            }
+                System.out.println(String.format("| %20s\t| %40s\t|\n", item.getId(), item.getName()));
+            }
         } else {
             System.out.println("No items found.");
         }
@@ -248,8 +250,8 @@ class FindItemById extends BaseAction {
         String id = input.ask("Please enter item Id for search: ");
         Item foundItem = tracker.findById(id);
         if (foundItem != null) {
-            System.out.printf("| %20s\t| %40s\t|\n", "Item Id", "Item Name");
-            System.out.printf("| %20s\t| %40s\t|\n", foundItem.getId(), foundItem.getName());
+            System.out.println(String.format("| %20s\t| %40s\t|\n", "Item Id", "Item Name"));
+            System.out.println(String.format("| %20s\t| %40s\t|\n", foundItem.getId(), foundItem.getName()));
         } else {
             System.out.println(String.format("Item with id: %s not found.", id));
         }
@@ -287,9 +289,9 @@ class FindItemsByName extends BaseAction {
         String itemName = input.ask("Please enter item name for search: ");
         Item[] foundItems = tracker.findByName(itemName);
         if (foundItems != null && foundItems.length > 0) {
-            System.out.printf("| %20s\t| %40s\t|\n", "Item Id", "Item Name");
+            System.out.println(String.format("| %20s\t| %40s\t|\n", "Item Id", "Item Name"));
             for (Item foundItem : foundItems) {
-                System.out.printf("| %20s\t| %40s\t|\n", foundItem.getId(), foundItem.getName());
+                System.out.println(String.format("| %20s\t| %40s\t|\n", foundItem.getId(), foundItem.getName()));
             }
         } else {
             System.out.println(String.format("Item with name:%s not found.", itemName));

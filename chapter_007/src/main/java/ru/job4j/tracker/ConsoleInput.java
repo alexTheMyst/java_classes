@@ -9,7 +9,6 @@ import java.util.Scanner;
  * @since 26.03.17
  */
 public class ConsoleInput implements Input {
-
     /**
      * Scanner instance.
      */

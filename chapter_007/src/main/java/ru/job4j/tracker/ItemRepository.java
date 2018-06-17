@@ -1,6 +1,9 @@
 package ru.job4j.tracker;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -70,9 +73,10 @@ public class ItemRepository {
      * @throws SQLException SQL exception
      */
     public Item[] getAllItems() throws SQLException {
-        try (PreparedStatement preparedStatement = this.connection.prepareStatement(SELECT_ID_NAME_FROM_ITEMS)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return getItems(resultSet).toArray(new Item[0]);
+        try (PreparedStatement preparedStatement = this.connection.prepareStatement(SELECT_ID_NAME_FROM_ITEMS);) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return getItems(resultSet).toArray(new Item[0]);
+            }
         }
     }
 

@@ -1,6 +1,8 @@
 package ru.job4j.tracker;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
+
 
 /**
  * Demonstrates tracker with DB storage.
@@ -10,11 +12,15 @@ import org.junit.Test;
  */
 public class TrackerTest {
     /**
+     * Logger instance.
+     */
+    private final static Logger LOG = Logger.getLogger(TrackerTest.class);
+    /**
      * Runs tracker and does some operations.
      */
     @Test
     public void demo() {
-        System.out.println("Program started.");
+        LOG.info("Program started.");
         try (Tracker tracker = new Tracker()) {
             deleteAllItems(tracker);
             tracker.add(new Item("test1"));
@@ -33,7 +39,7 @@ public class TrackerTest {
             tracker.update(testItem);
             printAllItems(tracker);
         }
-        System.out.println("Program finished.");
+        LOG.info("Program finished.");
 
     }
 
@@ -57,8 +63,8 @@ public class TrackerTest {
     private void printAllItems(Tracker tracker)  {
         Item[] allItems = tracker.findAll();
         for (Item item : allItems) {
-            System.out.println(item);
+            LOG.info(item);
         }
-        System.out.println("_______________________________________________________________________");
+        LOG.info("_______________________________________________________________________");
     }
 }
